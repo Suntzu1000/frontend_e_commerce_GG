@@ -96,6 +96,7 @@ a {
   transform: translate3d(0px, 57px, 0px) !important;
 }
 .header-bottom .dropdown-item {
+  color: var(--color-f5f5f7);
   padding: 20px;
   margin-bottom: 3px;
   border-bottom: 1px solid var(--color-3b4149);

@@ -33,7 +33,7 @@ const Header = () => {
               <div className="input-group">
                 <input
                   type="search"
-                  className="form-control"
+                  className="form-control py-2"
                   placeholder="Procurar Produtos "
                   aria-label="Procurar Produtos "
                   aria-describedby="basic-addon2"
@@ -108,17 +108,17 @@ const Header = () => {
                       aria-labelledby="dropdownMenuButton1"
                     >
                       <li>
-                        <Link className="dropdown-item" to="#">
+                        <Link className="dropdown-item text-white" to="#">
                           Action
                         </Link>
                       </li>
                       <li>
-                        <Link className="dropdown-item" to="#">
+                        <Link className="dropdown-item text-white" to="#">
                           Another action
                         </Link>
                       </li>
                       <li>
-                        <Link className="dropdown-item" to="#">
+                        <Link className="dropdown-item text-white" to="#">
                           Something else here
                         </Link>
                       </li>
