@@ -55,8 +55,8 @@ a {
   border-radius: 25px;
 }
 .button:hover {
-  background-color: var(--color-febd69);
-  color: #131921;
+  background-color: var(--color-bf4800);
+  color: var(--color-ededed);
 }
 /* Header Part */
 

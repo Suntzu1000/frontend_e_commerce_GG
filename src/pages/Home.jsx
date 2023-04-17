@@ -3,6 +3,7 @@ import React from "react";
 import Marquee from "react-fast-marquee";
 import BlogCard from "../components/BlogCard";
 import ProductCard from "../components/ProductCard";
+import SpecialProduct from "../components/SpecialProduct";
 
 const Home = () => {
   return (
@@ -175,6 +176,46 @@ const Home = () => {
           </div>
         </div>
       </section>
+      <section className="featured-wrapper py-5 homer-wrapper-2">
+        <div className="container-xxl">
+          <div className="row">
+            <div className="col-12">
+              <h3 className="section-heading">Coleção em Destaque</h3>
+            </div>
+            <ProductCard />
+            <ProductCard />
+            <ProductCard />
+            <ProductCard />
+          </div>
+        </div>
+      </section>
+      <section className="special-wrapper py-5 home-wrapper-2">
+        <div className="container-xxl">
+          <div className="row">
+            <div className="col-12">
+              <h3 className="section-heading">Produtos Especiais</h3>
+            </div>
+          </div>
+          <div className="row ">
+            <SpecialProduct/>
+            <SpecialProduct/>
+            <SpecialProduct/>
+          </div>
+        </div>
+      </section>
+      <section className="featured-wrapper py-5 homer-wrapper-2">
+        <div className="container-xxl">
+          <div className="row">
+            <div className="col-12">
+              <h3 className="section-heading">Coleção em Destaque</h3>
+            </div>
+            <ProductCard />
+            <ProductCard />
+            <ProductCard />
+            <ProductCard />
+          </div>
+        </div>
+      </section>
       <section className="marque-wrapper homer-wrapper-2 py-5">
         <div className="container-xll">
           <div className="row">
@@ -215,19 +256,6 @@ const Home = () => {
                 </Marquee>
               </div>
             </div>
-          </div>
-        </div>
-      </section>
-      <section className="blog-wrapper py-5 homer-wrapper-2">
-        <div className="container-xxl">
-          <div className="row">
-            <div className="col-12">
-              <h3 className="section-heading">Coleção em Destaque</h3>
-            </div>
-            <ProductCard />
-            <ProductCard />
-            <ProductCard />
-            <ProductCard />
           </div>
         </div>
       </section>
