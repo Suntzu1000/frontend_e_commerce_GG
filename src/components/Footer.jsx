@@ -73,7 +73,7 @@ const Footer = () => {
                     target="_blank"
                     rel="noopener noreferrer"
                   >
-                    <BsWhatsapp className="fs-4" />
+                    <BsWhatsapp className="fs-4"  />
                   </a>
                 </div>
               </div>
