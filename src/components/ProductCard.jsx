@@ -16,7 +16,7 @@ const ProductCard = () => {
           <img src="images/watch-1.avif" className="img-fluid" alt="Produtos" />
         </div>
         <div className="product-details">
-          <h6 className="brand"></h6>
+          <h6 className="brand">Produtos</h6>
           <h5 className="product-card">
             Fone de Ouvido Infantil multi colorido para crianças!
           </h5>

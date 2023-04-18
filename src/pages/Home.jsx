@@ -189,6 +189,79 @@ const Home = () => {
           </div>
         </div>
       </section>
+      <section className="famous-wrapper py-5 home-wrapper-2">
+        <div className="container-xxl">
+          <div className="row">
+            <div className="col-3">
+              <div className="famous-card position-relative">
+                <img
+                  src="images/famous-1.webp"
+                  className="img-fluid"
+                  alt="Produtos Famosos"
+                />
+                <div className="famous-content position-absolute">
+                  <h5>Telas Grandes.</h5>
+                  <h6>Série de Relógios Inteligentes.</h6>
+                  <p>De R$9.999,00 ou R$883,25/mês durante 1 Ano. </p>
+                </div>
+              </div>
+            </div>
+
+            <div className="col-3">
+              <div className="famous-card position-relative">
+                <img
+                  src="images/famous-2.webp"
+                  className="img-fluid"
+                  alt="Produtos Famosos"
+                />
+                <div className="famous-content position-absolute">
+                  <h5 className="text-dark">Laptop.</h5>
+                  <h6 className="text-dark">De Última Geração.</h6>
+                  <p className="text-dark">
+                    De R$2.999,00 ou R$250,50/mês durante 1 Ano.{" "}
+                  </p>
+                </div>
+              </div>
+            </div>
+
+            <div className="col-3">
+              <div className="famous-card position-relative">
+                <img
+                  src="images/famous-3.webp"
+                  className="img-fluid"
+                  alt="Produtos Famosos"
+                />
+                <div className="famous-content position-absolute">
+                  <h5 className="text-dark">Iphone.</h5>
+                  <h6 className="text-dark">Iphones 13 Pro.</h6>
+                  <p className="text-dark">
+                    Agora em tonalidade Verde. De R$4.450,00 ou R$370,00/mês por
+                    1 ano.{" "}
+                  </p>
+                </div>
+              </div>
+            </div>
+
+            <div className="col-3">
+              <div className="famous-card position-relative">
+                <img
+                  src="images/famous-4.webp"
+                  className="img-fluid"
+                  alt="Produtos Famosos"
+                />
+                <div className="famous-content position-absolute">
+                  <h5 className="text-dark">Som</h5>
+                  <h6 className="text-dark">Caixa de Som</h6>
+                  <p className="text-dark">
+                    {" "}
+                    De R$1.450,00 ou R$120,00/mês durante 1 ano.{" "}
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
       <section className="special-wrapper py-5 home-wrapper-2">
         <div className="container-xxl">
           <div className="row">
@@ -197,18 +270,21 @@ const Home = () => {
             </div>
           </div>
           <div className="row ">
-            <SpecialProduct/>
-            <SpecialProduct/>
-            <SpecialProduct/>
+            <SpecialProduct />
+            <SpecialProduct />
+            <SpecialProduct />
+            <SpecialProduct />
           </div>
         </div>
       </section>
-      <section className="featured-wrapper py-5 homer-wrapper-2">
+      <section className="popular-wrapper py-5 homer-wrapper-2">
         <div className="container-xxl">
           <div className="row">
             <div className="col-12">
-              <h3 className="section-heading">Coleção em Destaque</h3>
+              <h3 className="section-heading">Produtos Populares</h3>
             </div>
+          </div>
+          <div className="row">
             <ProductCard />
             <ProductCard />
             <ProductCard />
