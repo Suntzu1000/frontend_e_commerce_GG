@@ -3,7 +3,6 @@ import { Link } from "react-router-dom";
 
 const BlogCard = () => {
   return (
-    <div className="col-3">
       <div className="blog-card">
         <div className="card-image">
           <img src="images/blog-1.png" className="img-fluid" alt="Blog" />
@@ -20,7 +19,6 @@ const BlogCard = () => {
           </Link>
         </div>
       </div>
-    </div>
   );
 };
 
