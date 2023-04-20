@@ -81,14 +81,14 @@ const Footer = () => {
             <div className="col-3">
               <h4 className="text-white mb-4 ">Informações</h4>
               <div className="footer-link d-flex flex-column">
-                <Link className="text-white py-3 mb-1">
+                <Link to="/private-policy" className="text-white py-3 mb-1">
                   Política de Privacidade
                 </Link>
-                <Link className="text-white py-3 mb-1">
+                <Link to="/refund-policy" className="text-white py-3 mb-1">
                   Política de Reembolso
                 </Link>
-                <Link className="text-white py-3 mb-1">Política de Envio</Link>
-                <Link className="text-white py-3 mb-1">Termos & Condições</Link>
+                <Link to="/shipping-policy" className="text-white py-3 mb-1">Política de Envio</Link>
+                <Link to="/term&conditions" className="text-white py-3 mb-1">Termos & Condições</Link>
               </div>
             </div>
             <div className="col-3">
