@@ -1,14 +1,17 @@
 import BreadCrumb from "../components/BreadCrump";
 import React, { useState } from "react";
 import ReactStars from "react-rating-stars-component";
-import ReactImageZoom from 'react-image-zoom';
+import ReactImageZoom from "react-image-zoom";
 import Meta from "../components/Meta";
 import ProductCard from "../components/ProductCard";
 
-
-
 const SingleProduct = () => {
-  const props = {width: 400, height: 250, zoomWidth: 500, img: "https://brmotorolanew.vtexassets.com/arquivos/ids/162264-800-auto?v=637963526595000000&width=800&height=auto&aspect=true"};
+  const props = {
+    width: 400,
+    height: 500,
+    zoomWidth: 500,
+    img: "https://brmotorolanew.vtexassets.com/arquivos/ids/162264-800-auto?v=637963526595000000&width=800&height=auto&aspect=true",
+  };
   const [orderedProduct, setOrderedProduct] = useState(true);
 
   return (
@@ -20,7 +23,39 @@ const SingleProduct = () => {
           <div className="row">
             <div className="col-6">
               <div className="main-product-image">
-                <div><ReactImageZoom {...props} /></div>
+                <div>
+                  <ReactImageZoom {...props} />
+                </div>
+              </div>
+              <div className="other-product-images d-flex flex-wrap gap-15">
+                <div>
+                  {" "}
+                  <img
+                    src="https://brmotorolanew.vtexassets.com/arquivos/ids/162264-800-auto?v=637963526595000000&width=800&height=auto&aspect=true" className="img-fluid"
+                    alt=""
+                  />{" "}
+                </div>
+                <div>
+                  {" "}
+                  <img
+                    src="https://brmotorolanew.vtexassets.com/arquivos/ids/162264-800-auto?v=637963526595000000&width=800&height=auto&aspect=true" className="img-fluid"
+                    alt=""
+                  />{" "}
+                </div>
+                <div>
+                  {" "}
+                  <img
+                    src="https://brmotorolanew.vtexassets.com/arquivos/ids/162264-800-auto?v=637963526595000000&width=800&height=auto&aspect=true" className="img-fluid"
+                    alt=""
+                  />{" "}
+                </div>
+                <div>
+                  {" "}
+                  <img
+                    src="https://brmotorolanew.vtexassets.com/arquivos/ids/162264-800-auto?v=637963526595000000&width=800&height=auto&aspect=true" className="img-fluid"
+                    alt=""
+                  />{" "}
+                </div>
               </div>
             </div>
             <div className="col-6"></div>
