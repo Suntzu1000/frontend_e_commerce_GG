@@ -20,6 +20,7 @@ import TermsAndCond from "./pages/TermsAndCond";
 import SingleProduct from "./pages/SingleProduct";
 import SingleBlog from "./pages/SingleBlog";
 import Cart from "./pages/Cart";
+import Checkout from "./pages/Checkout";
 
 function App() {
   return (
@@ -35,6 +36,7 @@ function App() {
             <Route path="blogs" element={<Blog />} />
             <Route path="blogs/:id" element={<SingleBlog />} />
             <Route path="cart" element={<Cart />} />
+            <Route path="checkout" element={<Checkout />} />
             <Route path="compare-products" element={<CompareProd />} />
             <Route path="wishlist" element={<Wishlist />} />
             <Route path="login" element={<Login />} />
