@@ -5,6 +5,7 @@ import { HiOutlineArrowLeft } from "react-icons/hi";
 import BlogCard from "../components/BlogCard";
 import { Link } from "react-router-dom";
 import Container from "../components/Container";
+import blog from "../images/blog-1.png"
 
 const SingleBlog = () => {
   return (
@@ -21,7 +22,7 @@ const SingleBlog = () => {
                 </Link>
                 <h3 className="title">Um belo dia blablabla</h3>
                 <img
-                  src="images/blog-1.png"
+                  src={blog}
                   className="img-fluid w-100 my-4"
                   alt="Blog"
                 />

@@ -33,8 +33,8 @@ const Home = () => {
     <>
       <Container class1="home-wrapper-1 py-5">
         <div className="row">
-          <div className="rol-6">
-            <div className="main-banner position-relative  ">
+          <div className="col-6">
+            <div className="main-banner position-relative p-3 ">
               <img
                 src={main}
                 className="img-fluid rounded-3"
@@ -48,9 +48,35 @@ const Home = () => {
               </div>
             </div>
           </div>
-          <div className="rol-6">
+          <div className="col-6">
             <div className="d-flex flex-wrap justify-content-between align-items-center">
+              <div className="small-banner position-relative  p-3">
+                <img
+                  src={catbanner}
+                  className="img-fluid rounded-3"
+                  alt="Produtos Eletrônicos"
+                />
+                <div className="small-banner-content position-absolute">
+                  <h4>O Melhor valor está aqui!</h4>
+                  <h5>IPAD S3</h5>
+                  <p>De R$ 999 ou R$41,62/mês</p>
+                </div>
+              </div>
+
               <div className="small-banner position-relative  ">
+                <img
+                  src={catbanner02}
+                  className="img-fluid rounded-3"
+                  alt="Produtos Eletrônicos"
+                />
+                <div className="small-banner-content position-absolute">
+                  <h4>Novos Produtos</h4>
+                  <h5>IPAD S3</h5>
+                  <p>De R$ 999 ou R$41,62/mês</p>
+                </div>
+              </div>
+
+              <div className="small-banner position-relative  p-3">
                 <img
                   src={catbanner}
                   className="img-fluid rounded-3"
@@ -268,7 +294,7 @@ const Home = () => {
         </div>
       </Container>
 
-      <Container class1="marque-wrapper homer-wrapper-2 py-5">
+      <Container class1="marquee-wrapper homer-wrapper-2 py-5">
         <div className="row">
           <div className="col-12">
             <div className="marquee-inner-wrapper card-wrapper">
