@@ -19,7 +19,7 @@ const SignUp = () => {
                 <CustomInput type="email" name="email" placeholder="Email" />
 
                 <CustomInput type="tel" name="mobile" placeholder="Telefone" />
-                <CustomInput className="mt-1"
+                <CustomInput
                   type="password"
                   name="password"
                   placeholder="Senha"

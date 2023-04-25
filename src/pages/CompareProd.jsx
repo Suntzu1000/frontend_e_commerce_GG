@@ -3,6 +3,8 @@ import BreadCrumb from "../components/BreadCrump";
 import Meta from "../components/Meta";
 import Color from "../components/Color";
 import Container from "../components/Container";
+import cross from "../images/cross.svg";
+import watch from "../images/watch.jpg";
 
 const CompareProd = () => {
   return (
@@ -14,12 +16,12 @@ const CompareProd = () => {
           <div className="col-3">
             <div className="compare-product-card position-relative">
               <img
-                src="images/cross.svg"
+                src={cross}
                 alt="Fechar"
                 className="position-absolute cross img-fluid"
               />
               <div className="product-card-image ">
-                <img src="images/watch.jpg" alt="Relógio" />
+                <img src={watch} alt="Relógio" />
               </div>
               <div className="compare-product-details">
                 <h5 className="title">Super Relógio Inteligente</h5>
@@ -60,12 +62,12 @@ const CompareProd = () => {
           <div className="col-3">
             <div className="compare-product-card position-relative">
               <img
-                src="images/cross.svg"
+                src={cross}
                 alt="Fechar"
                 className="position-absolute cross img-fluid"
               />
               <div className="product-card-image ">
-                <img src="images/watch.jpg" alt="Relógio" />
+                <img src={watch} alt="Relógio" />
               </div>
               <div className="compare-product-details">
                 <h5 className="title">Super Relógio Inteligente</h5>

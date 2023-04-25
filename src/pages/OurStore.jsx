@@ -141,9 +141,9 @@ const OurStore = () => {
                       <h5>Fones de Ouvido de cores variadas.</h5>
                       <ReactStars
                         count={5}
-                        value="3"
+                        value={3}
                         size={24}
-                        edit="false"
+                        edit={false}
                         activeColor="#ffd700"
                       />
                       <b>R$300</b>
@@ -162,9 +162,9 @@ const OurStore = () => {
                       <h5>Fones de Ouvido de cores variadas.</h5>
                       <ReactStars
                         count={5}
-                        value="3"
+                        value={3}
                         size={24}
-                        edit="false"
+                        edit={false}
                         activeColor="#ffd700"
                       />
                       <b>R$300</b>

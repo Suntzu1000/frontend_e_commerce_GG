@@ -1,6 +1,8 @@
 import React from "react";
 import ReactStars from "react-rating-stars-component";
 import { Link } from "react-router-dom";
+import watch from "../images/watch.jpg";
+
 const SpecialProduct = () => {
   return (
     <>
@@ -8,13 +10,11 @@ const SpecialProduct = () => {
         <div className="special-product-card">
           <div className="d-flex justify-content-between">
             <div>
-              <img src="images/watch.jpg" className="img-fluid" alt="Relógio" />
+              <img src={watch} className="img-fluid" alt="Relógio" />
             </div>
             <div className="special-product-content">
               <h5 className="brand">Relógio</h5>
-              <h6 className="title">
-                Relógio Inteligente...
-              </h6>
+              <h6 className="title">Relógio Inteligente...</h6>
               <ReactStars
                 count={5}
                 size={24}
@@ -23,7 +23,8 @@ const SpecialProduct = () => {
                 activeColor="#ffd700"
               />
               <p className="price">
-                <span className="red-p">R$100</span> &nbsp; <strike>R$200</strike>
+                <span className="red-p">R$100</span> &nbsp;{" "}
+                <strike>R$200</strike>
               </p>
               <div className="discount-till d-flex align-items-center gap-10">
                 <p className="mb-0">

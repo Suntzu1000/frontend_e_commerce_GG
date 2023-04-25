@@ -2,6 +2,7 @@ import React from "react";
 
 import { Link } from "react-router-dom";
 import { BsLinkedin, BsGithub, BsWhatsapp } from "react-icons/bs";
+import noticias from "../images/newsletter.png"
 
 const Footer = () => {
   return (
@@ -11,7 +12,7 @@ const Footer = () => {
           <div className="row align-items-center">
             <div className="col-5">
               <div className="footer-top-data d-flex gap-30 align-items-center ">
-                <img src="images/newsletter.png" alt="Notícias" />
+                <img src={noticias} alt="Notícias" />
                 <h2 className="mb-0 text-white">Receber Notícias</h2>
               </div>
             </div>

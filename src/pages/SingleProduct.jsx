@@ -254,7 +254,7 @@ const SingleProduct = () => {
                 <form action="" className="d-flex flex-column gap-15">
                   <ReactStars
                     count={5}
-                    value="3"
+                    value={3}
                     size={24}
                     edit={true}
                     activeColor="#ffd700"
@@ -283,7 +283,7 @@ const SingleProduct = () => {
                   <div className="review d-flex ">
                     <ReactStars
                       count={5}
-                      value="3"
+                      value={3}
                       size={24}
                       edit={false}
                       activeColor="#ffd700"

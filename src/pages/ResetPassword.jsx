@@ -2,7 +2,7 @@ import React from "react";
 import BreadCrumb from "../components/BreadCrump";
 import Meta from "../components/Meta";
 import Container from "../components/Container";
-
+import CustomInput from "../components/CustomInput";
 
 const ResetPassword = () => {
   return (
@@ -16,22 +16,14 @@ const ResetPassword = () => {
               <h3 className="text-center mb-3">Redefinir Senha</h3>
               <p className="text-center mt-2 mb-3" >Enviamos um Email para que você possar redefinir senha!</p>
               <form action="" className="d-flex flex-column gap-15" >
-                <div>
-                  <input
-                    type="password"
-                    name="password"
-                    placeholder="Senha"
-                    className="form-control"
-                  />
-                </div>
-                <div>
-                  <input
-                    type="password"
-                    name="confpassword"
-                    placeholder="Confirmar Senha"
-                    className="form-control"
-                  />
-                </div>
+                <CustomInput 
+                 type="password"
+                 name="password"
+                 placeholder="Senha"/>
+               <CustomInput 
+                type="password"
+                name="confpassword"
+                placeholder="Confirmar Senha"/>
                 <div>
                     <div className="mt-3 d-flex justify-content-center flex-column gap-15 align-items-center " >
                         <button className="button border-0" type="submit">Redefinir</button>
