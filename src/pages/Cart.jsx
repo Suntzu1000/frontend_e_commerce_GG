@@ -4,14 +4,14 @@ import Meta from "../components/Meta";
 import watch from "../images/watch.jpg";
 import { AiOutlineDelete } from "react-icons/ai";
 import { Link } from "react-router-dom";
+import Container from "../components/Container";
 
 const Cart = () => {
   return (
     <>
       <Meta title={"Carrinho"} />
       <BreadCrumb title="Carrinho" />
-      <section className="cart-wrapper home-wrapper-2 py-5 ">
-        <div className="container-xxl">
+      <Container class1="cart-wrapper home-wrapper-2 py-5 ">
           <div className="row">
             <div className="col-12">
               <div className=" cart-data py-3 d-flex justify-content-between align-content-center ">
@@ -67,8 +67,8 @@ const Cart = () => {
               </div>
             </div>
           </div>
-        </div>
-      </section>
+        
+      </Container>
     </>
   );
 };

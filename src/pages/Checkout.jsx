@@ -4,14 +4,14 @@ import Meta from "../components/Meta";
 import { Link } from "react-router-dom";
 import { BsBackspaceReverseFill } from "react-icons/bs";
 import watch from "../images/watch.jpg";
+import Container from "../components/Container";
 
 const Checkout = () => {
   return (
     <>
       <Meta title={"Checkout"} />
       <BreadCrumb title="Checkout" />
-      <div className="checkout-wrapper py-5 home-wrapper">
-        <div className="container-xxl">
+      <Container class1="checkout-wrapper py-5 home-wrapper">
           <div className="row">
             <div className="col-7">
               <div className="checkout-left-data">
@@ -22,26 +22,27 @@ const Checkout = () => {
                 >
                   <ol className="breadcrumb">
                     <li className="breadcrumb-item">
-                      <Link className="text-dark" to="/cart">
+                      <Link className="text-dark total " to="/cart">
                         Carrinho
                       </Link>
                     </li>
                     &nbsp;/
-                    <li className="breadcrumb-item active" aria-current="page">
+                    <li className="breadcrumb-item total active" aria-current="page">
                       Informação
                     </li>
                     &nbsp;/
-                    <li className="breadcrumb-item active">Envio</li>
+                    <li className="breadcrumb-item total active">Envio</li>
                     &nbsp;/
-                    <li className="breadcrumb-item active" aria-current="page">
+                    <li className="breadcrumb-item total active" aria-current="page">
                       Pagamento
                     </li>
                   </ol>
                 </nav>
-                <h4 className="title">Informações de contato</h4>
-                <p className="user-details">
+                <h4 className="title total ">Informações de contato</h4>
+                <p className="user-details total">
                   Gabriel (gabrielfootze@gmail.com)
                 </p>
+                <h4 className="mb-3" >Endereço para envio</h4>
                 <form
                   action=""
                   className="d-flex gap-15 flex-wrap justify-content-between"
@@ -125,29 +126,28 @@ const Checkout = () => {
                       <img className="img-fluid" src={watch} alt="Relógio" />
                     </div>
                     <div>
-                      <h5 className="title">dfadfd</h5>
-                      <p>S / #dfadfd</p>
+                      <h5 className="total-price">dfadfd</h5>
+                      <p className="total-price" >S / #dfadfd</p>
                     </div>
                   </div>
                   <div className="flex-wrap-1">
-                    <h5>R$ 2000</h5>
+                    <h5 className="total" >R$ 2000</h5>
                   </div>
                 </div>
               </div>
               <div className="border-bottom py-4 ">
                 <div className="d-flex justify-content-between align-items-center ">
-                  <h4 className="mb-0">Enviado</h4>
-                  <h5 className="mb-0">R$ 1000</h5>
+                  <h4 className="mb-0 total ">Enviado</h4>
+                  <h5 className="mb-0 total-price ">R$ 1000</h5>
                 </div>
               </div>
               <div className="d-flex justify-content-between align-items-center border-bottom py-4">
-                <h4>Total</h4>
-                <h5>R$ 1000</h5>
+                <h4 className="total" >Total</h4>
+                <h5 className="total-price"> R$ 1000</h5>
               </div>
             </div>
           </div>
-        </div>
-      </div>
+        </Container>
     </>
   );
 };
