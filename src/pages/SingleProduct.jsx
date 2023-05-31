@@ -172,7 +172,7 @@ const SingleProduct = () => {
                   <div>
                     <a href="#">
                       <AiOutlineShoppingCart className="fs-5" />
-                      Adicionar para Lista
+                      Adicionar em Lista
                     </a>
                   </div>
                 </div>
