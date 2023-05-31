@@ -48,8 +48,9 @@ function App() {
             <Route path="shipping-policy" element={<ShippingPolicy />} />
             <Route path="term&conditions" element={<TermsAndCond />} />
           </Route>
-        </Routes>
+        </Routes>    
       </BrowserRouter>
+      
     </>
   );
 }
