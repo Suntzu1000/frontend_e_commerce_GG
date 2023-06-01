@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useCallback } from "react";
 import ReactStars from "react-rating-stars-component";
 import { Link, useLocation } from "react-router-dom";
 import watch2 from "../images/watch-1.avif";
@@ -6,10 +6,22 @@ import wish from "../images/wish.svg";
 import compare from "../images/prodcompare.svg";
 import view from "../images/view.svg";
 import cart from "../images/add-cart.svg";
+import { useDispatch } from "react-redux";
+import { addToWishList } from "../features/products/productsSlice";
 
 const ProductCard = (props) => {
   const { grid, data } = props;
+  const dispatch = useDispatch();
   let location = useLocation();
+
+  const addWishList = useCallback(
+    (id) => {
+      dispatch(addToWishList(id));
+      alert(id);
+    },
+    [dispatch]
+  );
+
   return (
     <>
       {data?.map((item, index) => {
@@ -31,7 +43,12 @@ const ProductCard = (props) => {
               className="product-card position-relative"
             >
               <div className="wishlist-icon position-absolute">
-                <button className="border-0 bg-transparent ">
+                <button
+                  className="border-0 bg-transparent "
+                  onClick={(e) => {
+                    addWishList(item?._id);
+                  }}
+                >
                   <img src={wish} alt="Produtos" />
                 </button>
               </div>
@@ -57,7 +74,7 @@ const ProductCard = (props) => {
                   value={item?.totalrating}
                   size={24}
                   edit={false}
-                  activeColor="#ffd700"
+                  activeColor={`#ffd700`}
                 />
                 <p
                   className={`description ${
