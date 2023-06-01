@@ -4,6 +4,9 @@ import { base_url } from "../../utils/axiosConfig";
 const register = async (userData) => {
   const response = await axios.post(`${base_url}user/cadastrar`, userData);
   if (response.data) {
+    if (response.data) {
+      localStorage.setItem("user", JSON.stringify(response.data));
+    }
     return response.data;
   }
 };
