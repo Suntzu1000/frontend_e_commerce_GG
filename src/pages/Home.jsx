@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import React from "react";
+import React, { useCallback, useEffect } from "react";
 import Marquee from "react-fast-marquee";
 import BlogCard from "../components/BlogCard";
 import ProductCard from "../components/ProductCard";
@@ -27,8 +27,23 @@ import brand5 from "../images/brand-05.png"
 import brand6 from "../images/brand-06.png"
 import brand7 from "../images/brand-07.png"
 import brand8 from "../images/brand-08.png"
+import { useDispatch, useSelector } from "react-redux";
+import { getBlogs } from "../features/blogs/blogSlice";
+import moment from "moment";
 
 const Home = () => {
+
+   const dispatch = useDispatch();
+  const blogState = useSelector((state) => state?.blog?.blog);
+
+  const getAllBlogs = useCallback(() => {
+    dispatch(getBlogs());
+  }, [dispatch]);
+
+  useEffect(() => {
+    getAllBlogs();
+  }, [getAllBlogs]);
+
   return (
     <>
       <Container class1="home-wrapper-1 py-5">
@@ -343,18 +358,23 @@ const Home = () => {
           </div>
         </div>
         <div className="row">
-          <div className="col-3">
-            <BlogCard />
-          </div>
-          <div className="col-3">
-            <BlogCard />
-          </div>
-          <div className="col-3">
-            <BlogCard />
-          </div>
-          <div className="col-3">
-            <BlogCard />
-          </div>
+          {blogState && blogState?.map((item, index) => {
+               if(index < 4 ){
+                 return (
+                  <div className="col-3 mb-3 " key={index}>
+                    <BlogCard
+                      id={item?._id}
+                      title={item?.title}
+                      description={item?.description}
+                      image={item?.image[0].url}
+                      date={moment(item?.createdAt).format(
+                        "MMMM Do YYYY, h:mm a "
+                      )}
+                    />
+                  </div>
+                );
+               }
+              })}
         </div>
       </Container>
     </>
