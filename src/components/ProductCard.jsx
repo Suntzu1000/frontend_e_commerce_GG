@@ -17,7 +17,6 @@ const ProductCard = (props) => {
   const addWishList = useCallback(
     (id) => {
       dispatch(addToWishList(id));
-      alert(id);
     },
     [dispatch]
   );
@@ -33,13 +32,13 @@ const ProductCard = (props) => {
             }`}
           >
             <Link
-              to={`${
+             /* to={`${
                 location.pathname === "/"
                   ? "/product/:id"
                   : location.pathname === "/product/:id"
                   ? "product/:id"
                   : ":id"
-              }`}
+              }`}*/
               className="product-card position-relative"
             >
               <div className="wishlist-icon position-absolute">

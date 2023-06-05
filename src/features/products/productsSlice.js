@@ -56,6 +56,7 @@ export const productSlice = createSlice({
         state.isError = false;
         state.isSuccess = true;
         state.wishlist = action.payload;
+        state.message = "Produto Salvado"
       })
       .addCase(addToWishList.rejected, (state, action) => {
         state.isLoading = false;
