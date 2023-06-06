@@ -1,4 +1,4 @@
-import React, { useCallback } from "react";
+import React from "react";
 import ReactStars from "react-rating-stars-component";
 import { Link, useLocation } from "react-router-dom";
 import watch2 from "../images/watch-1.avif";
@@ -7,19 +7,17 @@ import compare from "../images/prodcompare.svg";
 import view from "../images/view.svg";
 import cart from "../images/add-cart.svg";
 import { useDispatch } from "react-redux";
-import { addToWishList } from "../features/products/productsSlice";
+import { addWishList } from "../features/products/productsSlice";
 
 const ProductCard = (props) => {
   const { grid, data } = props;
   const dispatch = useDispatch();
   let location = useLocation();
 
-  const addWishList = useCallback(
-    (id) => {
-      dispatch(addToWishList(id));
-    },
-    [dispatch]
-  );
+  const addToWishList = (id) => {
+      dispatch(addWishList(id));
+    }
+
 
   return (
     <>
@@ -44,8 +42,8 @@ const ProductCard = (props) => {
               <div className="wishlist-icon position-absolute">
                 <button
                   className="border-0 bg-transparent "
-                  onClick={(e) => {
-                    addWishList(item?._id);
+                  onClick={(_id) => {
+                    addToWishList(item?._id);
                   }}
                 >
                   <img src={wish} alt="Produtos" />
@@ -53,14 +51,14 @@ const ProductCard = (props) => {
               </div>
               <div className="product-image">
                 <img
-                  src={watch2}
-                  className="img-fluid d-block mx-auto"
+                  src={ watch2}
+                  className="img-fluid  mx-auto"
                   alt="Produtos"
                   width={160}
                 />
                 <img
                   src={watch2}
-                  className="img-fluid d-block mx-auto"
+                  className="img-fluid mx-auto "
                   alt="Produtos"
                   width={160}
                 />

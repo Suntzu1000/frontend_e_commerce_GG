@@ -4,8 +4,6 @@ import Marquee from "react-fast-marquee";
 import BlogCard from "../components/BlogCard";
 import ProductCard from "../components/ProductCard";
 import SpecialProduct from "../components/SpecialProduct";
-import BreadCrumb from "../components/BreadCrump";
-import Meta from "../components/Meta";
 import Container from "../components/Container";
 import main from "../images/main-banner-1.jpg";
 import { services } from "../utils/Data";
@@ -19,30 +17,36 @@ import famous from "../images/famous-1.webp";
 import famous2 from "../images/famous-2.webp";
 import famous3 from "../images/famous-3.webp";
 import famous4 from "../images/famous-4.webp";
-import brand from "../images/brand-01.png"
-import brand2 from "../images/brand-02.png"
-import brand3 from "../images/brand-03.png"
-import brand4 from "../images/brand-04.png"
-import brand5 from "../images/brand-05.png"
-import brand6 from "../images/brand-06.png"
-import brand7 from "../images/brand-07.png"
-import brand8 from "../images/brand-08.png"
+import brand from "../images/brand-01.png";
+import brand2 from "../images/brand-02.png";
+import brand3 from "../images/brand-03.png";
+import brand4 from "../images/brand-04.png";
+import brand5 from "../images/brand-05.png";
+import brand6 from "../images/brand-06.png";
+import brand7 from "../images/brand-07.png";
+import brand8 from "../images/brand-08.png";
 import { useDispatch, useSelector } from "react-redux";
 import { getBlogs } from "../features/blogs/blogSlice";
 import moment from "moment";
+import { getProducts } from "../features/products/productsSlice";
 
 const Home = () => {
-
-   const dispatch = useDispatch();
+  const dispatch = useDispatch();
   const blogState = useSelector((state) => state?.blog?.blog);
+  const productState = useSelector((state) => state.product.product);
 
   const getAllBlogs = useCallback(() => {
     dispatch(getBlogs());
   }, [dispatch]);
 
+  const getAllProducts = useCallback(() => {
+    dispatch(getProducts());
+  }, [dispatch]);
+
   useEffect(() => {
     getAllBlogs();
-  }, [getAllBlogs]);
+    getAllProducts();
+  }, [getAllBlogs, getAllProducts]);
 
   return (
     <>
@@ -288,10 +292,22 @@ const Home = () => {
           </div>
         </div>
         <div className="row ">
-          <SpecialProduct />
-          <SpecialProduct />
-          <SpecialProduct />
-          <SpecialProduct />
+          {productState &&
+            productState?.map((item, index) => {
+              if (item.tags === "special") {
+                return (
+                  <SpecialProduct
+                    key={index}
+                    brand={item?.brand}
+                    title={item?.title}
+                    totalRating={item?.totalrating.toString()}
+                    price={item?.price}
+                    sold={item?.sold}
+                    quantity={item?.quantity}
+                  />
+                );
+              }
+            })}
         </div>
       </Container>
 
@@ -302,10 +318,17 @@ const Home = () => {
           </div>
         </div>
         <div className="row">
-          <ProductCard />
-          <ProductCard />
-          <ProductCard />
-          <ProductCard />
+          {productState &&
+            productState?.map((item, index) => {
+              if (item.tags === "popular") {
+                return (
+                  <ProductCard
+                    key={index}
+                    data={productState}
+                  />
+                );
+              }
+            })}
         </div>
       </Container>
 
@@ -358,9 +381,10 @@ const Home = () => {
           </div>
         </div>
         <div className="row">
-          {blogState && blogState?.map((item, index) => {
-               if(index < 4 ){
-                 return (
+          {blogState &&
+            blogState?.map((item, index) => {
+              if (index < 4) {
+                return (
                   <div className="col-3 mb-3 " key={index}>
                     <BlogCard
                       id={item?._id}
@@ -373,8 +397,8 @@ const Home = () => {
                     />
                   </div>
                 );
-               }
-              })}
+              }
+            })}
         </div>
       </Container>
     </>

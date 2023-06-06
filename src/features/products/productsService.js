@@ -9,7 +9,11 @@ const getProducts = async () => {
 };
 
 const addToWishList = async (prodId) => {
-  const response = await axios.put(`${base_url}product/wishlist`, {prodId}, config);
+  const response = await axios.put(
+    `${base_url}product/wishlist`,
+    { prodId },
+    config
+  );
   if (response.data) {
     return response.data;
   }
