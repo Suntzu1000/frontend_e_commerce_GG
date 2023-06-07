@@ -24,13 +24,27 @@ export const loginUser = createAsyncThunk(
   }
 );
 
-export const getUserProductWishlist = createAsyncThunk("user/wishlist", async (thunkAPI) => {
-  try{
-    return await authService.getUserWishlist()
-  } catch(error){
-    return thunkAPI.rejectWithValue(error)
+export const getUserProductWishlist = createAsyncThunk(
+  "user/wishlist",
+  async (thunkAPI) => {
+    try {
+      return await authService.getUserWishlist();
+    } catch (error) {
+      return thunkAPI.rejectWithValue(error);
+    }
   }
-})
+);
+
+export const addProductToCart = createAsyncThunk(
+  "user/cart/add",
+  async (cartData, thunkAPI) => {
+    try {
+      return await authService.addToCart(cartData);
+    } catch (error) {
+      return thunkAPI.rejectWithValue(error);
+    }
+  }
+);
 
 export const getCustomerFromLocalStorage = localStorage.getItem("customer")
   ? JSON.parse(localStorage.getItem("customer"))
@@ -60,7 +74,7 @@ export const authSlice = createSlice({
         state.createdUser = action.payload;
         if (state.isSuccess === true) {
           toast.info("USUÁRIO CRIADO COM SUCESSO!");
-        };
+        }
       })
       .addCase(registerUser.rejected, (state, action) => {
         state.isLoading = false;
@@ -69,7 +83,7 @@ export const authSlice = createSlice({
         state.message = action.error;
         if (state.isError === true) {
           toast.error(action.error);
-        };
+        }
       })
       .addCase(loginUser.pending, (state) => {
         state.isLoading = true;
@@ -80,9 +94,9 @@ export const authSlice = createSlice({
         state.isSuccess = true;
         state.loginUser = action.payload;
         if (state.isSuccess === true) {
-          localStorage.setItem("token", action.payload.token)
+          localStorage.setItem("token", action.payload.token);
           toast.info("ACESSO PERMITIDO!");
-        };
+        }
       })
       .addCase(loginUser.rejected, (state, action) => {
         state.isLoading = false;
@@ -91,7 +105,7 @@ export const authSlice = createSlice({
         state.message = action.error;
         if (state.isError === true) {
           toast.error(action.error);
-        };
+        }
       })
       .addCase(getUserProductWishlist.pending, (state) => {
         state.isLoading = true;
@@ -108,7 +122,9 @@ export const authSlice = createSlice({
         state.isSuccess = false;
         state.message = action.error;
       })
-
+      .addCase(addProductToCart.pending, (state) => {
+        state.isLoading = true;
+      })
   },
 });
 

@@ -1,8 +1,7 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import React, { useCallback, useEffect } from "react";
 import Marquee from "react-fast-marquee";
 import BlogCard from "../components/BlogCard";
-import ProductCard from "../components/ProductCard";
 import SpecialProduct from "../components/SpecialProduct";
 import Container from "../components/Container";
 import main from "../images/main-banner-1.jpg";
@@ -39,6 +38,7 @@ import ReactStars from "react-rating-stars-component";
 
 const Home = () => {
   const dispatch = useDispatch();
+  const navigate = useNavigate()
   const blogState = useSelector((state) => state?.blog?.blog);
   const productState = useSelector((state) => state.product.product);
 
@@ -234,10 +234,72 @@ const Home = () => {
           <div className="col-12">
             <h3 className="section-heading">Coleção em Destaque</h3>
           </div>
-          <ProductCard />
-          <ProductCard />
-          <ProductCard />
-          <ProductCard />
+          {productState &&
+            productState?.map((item, index) => {
+              if (item.tags === "featured") {
+                return (
+                  <div
+            key={index}
+            className={"col-3"}
+          >
+            <div
+            
+              className="product-card position-relative"
+            >
+              <div className="wishlist-icon position-absolute">
+                <button
+                  className="border-0 bg-transparent "
+                  onClick={(_id) => {
+                    addToWishList(item?._id);
+                  }}
+                >
+                  <img src={wish} alt="Produtos" />
+                </button>
+              </div>
+              <div className="product-image">
+                <img
+                  src={item?.images[0].url ? item?.images[0].url : watch2}
+                  className="img-fluid  mx-auto"
+                  alt="Produtos"
+                  width={160}
+                />
+                <img
+                  src={watch2}
+                  className="img-fluid mx-auto "
+                  alt="Produtos"
+                  width={160}
+                />
+              </div>
+              <div className="product-details">
+                <h6 className="brand">{item?.brand}</h6>
+                <h5 className="product-card">{item?.title}</h5>
+                <ReactStars
+                  count={5}
+                  value={item?.totalrating}
+                  size={24}
+                  edit={false}
+                  activeColor={`#ffd700`}
+                />
+                <p className="price">R${item?.price}</p>
+              </div>
+              <div className="action-bar position-absolute">
+                <div className="d-flex flex-column gap-15">
+                  <button className="border-0 bg-transparent ">
+                    <img src={compare} alt="Adicionar em Carrinho" />
+                  </button>
+                  <button className="border-0 bg-transparent ">
+                    <img onClick={() => navigate("/product/"+item?._id)} src={view} alt="Visualizar" />
+                  </button>
+                  <button className="border-0 bg-transparent ">
+                    <img src={cart} alt="Adicionar em Carrinho" />
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+                );
+              }
+            })}
         </div>
       </Container>
 
@@ -310,6 +372,7 @@ const Home = () => {
                 return (
                   <SpecialProduct
                     key={index}
+                    id={item?._id}
                     brand={item?.brand}
                     title={item?.title}
                     totalRating={item?.totalrating.toString()}
@@ -338,14 +401,7 @@ const Home = () => {
             key={index}
             className={"col-3"}
           >
-            <Link
-             /* to={`${
-                location.pathname === "/"
-                  ? "/product/:id"
-                  : location.pathname === "/product/:id"
-                  ? "product/:id"
-                  : ":id"
-              }`}*/
+            <div
               className="product-card position-relative"
             >
               <div className="wishlist-icon position-absolute">
@@ -390,14 +446,14 @@ const Home = () => {
                     <img src={compare} alt="Adicionar em Carrinho" />
                   </button>
                   <button className="border-0 bg-transparent ">
-                    <img src={view} alt="Visualizar" />
+                    <img onClick={() => navigate("/product/"+item?._id)} src={view} alt="Visualizar" />
                   </button>
                   <button className="border-0 bg-transparent ">
                     <img src={cart} alt="Adicionar em Carrinho" />
                   </button>
                 </div>
               </div>
-            </Link>
+            </div>
           </div>
                 );
               }

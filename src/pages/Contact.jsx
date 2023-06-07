@@ -6,16 +6,36 @@ import { BiPhoneCall, BiInfoCircle } from "react-icons/bi";
 import Container from "../components/Container";
 import * as yup from "yup";
 import { useFormik } from "formik";
+import { useDispatch } from "react-redux";
+import { createQuery } from "../features/contacts/contactSlice";
+
+let contactSchema = yup.object({
+  name: yup.string().required("NOME OBRIGATÓRIO!"),
+  email: yup.string().email().required("EMAIL OBRIGATÓRIO!"),
+  mobile: yup.number().required("NÚMERO OBRIGATÓRIO!"),
+  comment: yup.string().required("COMENTÁRIO É OBRIGATÓRIO!"),
+});
 
 const Contact = () => {
+  const dispatch = useDispatch();
+
   const formik = useFormik({
     initialValues: {
-      firstName: "",
-      lastName: "",
+      name: "",
       email: "",
+      mobile: "",
+      comment: "",
     },
+    validationSchema: contactSchema,
     onSubmit: (values) => {
-      alert(JSON.stringify(values, null, 2));
+      dispatch(
+        createQuery({
+          name: values.name,
+          email: values.email,
+          mobile: values.mobile,
+          comment: values.comment,
+        })
+      );
     },
   });
 
@@ -40,7 +60,11 @@ const Contact = () => {
             <div className="contact-inner-wrapper d-flex justify-content-between ">
               <div>
                 <h3 className="contact-title mb-4 ">Contate-nos</h3>
-                <form action="" className="d-flex flex-column gap-15">
+                <form
+                  action=""
+                  onSubmit={formik.handleSubmit}
+                  className="d-flex flex-column gap-15"
+                >
                   <div>
                     <input
                       type="text"
@@ -48,13 +72,11 @@ const Contact = () => {
                       placeholder="Nome"
                       name="name"
                       onChange={formik.handleChange("name")}
-                      onBlur={formik.handleBlur('name')}
+                      onBlur={formik.handleBlur("name")}
                       value={formik.values.name}
                     />
                     <div className="error">
-                      {
-                        formik.touched.name && formik.errors.name
-                      }
+                      {formik.touched.name && formik.errors.name}
                     </div>
                   </div>
                   <div>
@@ -62,24 +84,44 @@ const Contact = () => {
                       type="email"
                       className="form-control"
                       placeholder="Email"
+                      name="email"
+                      onChange={formik.handleChange("email")}
+                      onBlur={formik.handleBlur("email")}
+                      value={formik.values.email}
                     />
+                    <div className="error">
+                      {formik.touched.email && formik.errors.email}
+                    </div>
                   </div>
                   <div>
                     <input
                       type="number"
                       className="form-control"
                       placeholder="Número de Telefone"
+                      name="mobile"
+                      onChange={formik.handleChange("mobile")}
+                      onBlur={formik.handleBlur("mobile")}
+                      value={formik.values.mobile}
                     />
+                    <div className="error">
+                      {formik.touched.mobile && formik.errors.mobile}
+                    </div>
                   </div>
                   <div>
                     <textarea
-                      name=""
+                      name="comment"
                       id=""
                       className="form-control"
                       cols="30"
                       rows="4"
                       placeholder="Comentários"
+                      onChange={formik.handleChange("comment")}
+                      onBlur={formik.handleBlur("comment")}
+                      value={formik.values.comment}
                     ></textarea>
+                    <div className="error">
+                      {formik.touched.comment && formik.errors.comment}
+                    </div>
                   </div>
                   <div>
                     <button className="button border-0">Enviar</button>

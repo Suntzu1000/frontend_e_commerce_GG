@@ -17,12 +17,16 @@ const login = async (userData) => {
     return response.data;
   }
 };
-
 const getUserWishlist = async () => {
   const response = await axios.get(`${base_url}user/wishlist`, config);
   if (response.data) {
     return response.data;
   }
 };
-
-export const authService = { register, login, getUserWishlist };
+const addToCart = async (cartData) => {
+  const response = await axios.post(`${base_url}user/cart`, cartData, config);
+  if (response.data) {
+    return response.data;
+  }
+};
+export const authService = { register, login, getUserWishlist, addToCart };

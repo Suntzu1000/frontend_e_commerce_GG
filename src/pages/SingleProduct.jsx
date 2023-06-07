@@ -1,5 +1,5 @@
 import BreadCrumb from "../components/BreadCrump";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import ReactStars from "react-rating-stars-component";
 import ReactImageZoom from "react-image-zoom";
 import Meta from "../components/Meta";
@@ -8,13 +8,28 @@ import Color from "../components/Color";
 import { TbGitCompare } from "react-icons/tb";
 import { AiOutlineShoppingCart } from "react-icons/ai";
 import Container from "../components/Container";
+import { useLocation } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { getProduct } from "../features/products/productsSlice";
 
 const SingleProduct = () => {
+  const location = useLocation();
+  const getProductId = location.pathname.split("/")[2];
+  const dispatch = useDispatch();
+  const productState = useSelector((state) => state.product.singleProduct);
+  console.log(productState);
+
+  useEffect(() => {
+    dispatch(getProduct(getProductId));
+  }, [dispatch, getProductId]);
+
   const props = {
     width: 400,
     height: 600,
     zoomWidth: 600,
-    img: "https://brmotorolanew.vtexassets.com/arquivos/ids/162264-800-auto?v=637963526595000000&width=800&height=auto&aspect=true",
+    img: productState?.images[0]?.url
+      ? productState?.images[0]?.url
+      : "https://brmotorolanew.vtexassets.com/arquivos/ids/162264-800-auto?v=637963526595000000&width=800&height=auto&aspect=true",
   };
   const [orderedProduct, setOrderedProduct] = useState(true);
   const copyToClipboard = (text) => {
@@ -40,54 +55,26 @@ const SingleProduct = () => {
               </div>
             </div>
             <div className="other-product-images d-flex flex-wrap gap-15">
-              <div>
-                {" "}
-                <img
-                  src="https://brmotorolanew.vtexassets.com/arquivos/ids/162264-800-auto?v=637963526595000000&width=800&height=auto&aspect=true"
-                  className="img-fluid"
-                  alt=""
-                />{" "}
-              </div>
-              <div>
-                {" "}
-                <img
-                  src="https://brmotorolanew.vtexassets.com/arquivos/ids/162264-800-auto?v=637963526595000000&width=800&height=auto&aspect=true"
-                  className="img-fluid"
-                  alt=""
-                />{" "}
-              </div>
-              <div>
-                {" "}
-                <img
-                  src="https://brmotorolanew.vtexassets.com/arquivos/ids/162264-800-auto?v=637963526595000000&width=800&height=auto&aspect=true"
-                  className="img-fluid"
-                  alt=""
-                />{" "}
-              </div>
-              <div>
-                {" "}
-                <img
-                  src="https://brmotorolanew.vtexassets.com/arquivos/ids/162264-800-auto?v=637963526595000000&width=800&height=auto&aspect=true"
-                  className="img-fluid"
-                  alt=""
-                />{" "}
-              </div>
+              {productState?.images.map((item, index) => {
+                return (
+                  <div>
+                    <img src={item?.url} className="img-fluid" alt="" />{" "}
+                  </div>
+                );
+              })}
             </div>
           </div>
           <div className="col-6">
             <div className="main-product-details">
               <div className="border-bottom">
-                <h3 className="title">
-                  Experimente a verdadeira imersão sonora com nossos headphones
-                  de alta qualidade!
-                </h3>
+                <h3 className="title">{productState && productState?.title}</h3>
               </div>
               <div className="border-bottom py-3">
-                <p className="price">R$ 100</p>
+                <p className="price">R$ {productState?.price}</p>
                 <div className="d-flex align-items-center gap-10">
                   <ReactStars
                     count={5}
-                    value={4}
+                    value={productState?.totalrating.toString()}
                     size={24}
                     edit={true}
                     activeColor="#ffd700"
@@ -105,15 +92,15 @@ const SingleProduct = () => {
                 </div>
                 <div className="d-flex gap-10 align-items-center my-2 ">
                   <h3 className="product-heading">Marca:</h3>
-                  <p className="product-data">Apple</p>
+                  <p className="product-data">{productState?.brand}</p>
                 </div>
                 <div className="d-flex gap-10 align-items-center my-2 ">
                   <h3 className="product-heading">Categoria:</h3>
-                  <p className="product-data">Watch</p>
+                  <p className="product-data">{productState?.category}</p>
                 </div>
                 <div className="d-flex gap-10 align-items-center my-2 ">
                   <h3 className="product-heading">Tags:</h3>
-                  <p className="product-data">GFD</p>
+                  <p className="product-data">{productState?.tags}</p>
                 </div>
                 <div className="d-flex gap-10 align-items-center my-2 ">
                   <h3 className="product-heading">Disponibilidade:</h3>
@@ -195,9 +182,7 @@ const SingleProduct = () => {
                     <a
                       href="javascript:void(0);"
                       onClick={() => {
-                        copyToClipboard(
-                          "https://brmotorolanew.vtexassets.com/arquivos/ids/162264-800-auto?v=637963526595000000&width=800&height=auto&aspect=true"
-                        );
+                        copyToClipboard(window.location.href);
                       }}
                     >
                       Copiar link de imagem
@@ -212,9 +197,13 @@ const SingleProduct = () => {
       <Container class1="description-wrapper py-5 home-wrapper-2">
         <div class1="row">
           <div className="col-12">
-            <h4>Description</h4>
+            <h4>Descrição</h4>
             <div className="bg-white p-3 ">
-              <p>Lorem ipsum dolor sit amet consectetur adipisicing elit.</p>
+              <p
+                dangerouslySetInnerHTML={{
+                  __html: productState?.description,
+                }}
+              ></p>
             </div>
           </div>
         </div>

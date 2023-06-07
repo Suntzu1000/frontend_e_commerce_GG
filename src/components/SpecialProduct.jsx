@@ -4,8 +4,7 @@ import { Link } from "react-router-dom";
 import watch from "../images/watch.jpg";
 
 const SpecialProduct = (props) => {
-  const { title, brand, totalrating, price, sold, quantity } = props;
-  console.log(quantity / quantity + sold * 100);
+  const { title, brand, totalrating, price, sold, quantity, id } = props;
   return (
     <>
       <div className="col-6 mb-3">
@@ -51,7 +50,7 @@ const SpecialProduct = (props) => {
                   ></div>
                 </div>
               </div>
-              <Link className="button">Carrinho</Link>
+              <Link className="button" to={`/product/`+id}>Carrinho</Link>
             </div>
           </div>
         </div>
