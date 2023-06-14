@@ -69,7 +69,7 @@ export const deleteCartProduct = createAsyncThunk(
 );
 
 export const updateCartProduct = createAsyncThunk(
-  "user/cart/product/delete",
+  "user/cart/product/update",
   async (cartDetail, thunkAPI) => {
     try {
       return await authService.updateProductFromCart(cartDetail);
@@ -180,7 +180,7 @@ export const authSlice = createSlice({
         state.isLoading = false;
         state.isError = false;
         state.isSuccess = true;
-        state.getProducts = action.payload;
+        state.cartProducts = action.payload;
       })
       .addCase(getUserCart.rejected, (state, action) => {
         state.isLoading = false;

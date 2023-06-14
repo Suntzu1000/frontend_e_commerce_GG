@@ -6,34 +6,52 @@ import { AiOutlineDelete } from "react-icons/ai";
 import { Link } from "react-router-dom";
 import Container from "../components/Container";
 import { useDispatch, useSelector } from "react-redux";
-import { deleteCartProduct, getUserCart, updateCartProduct } from "../features/user/userSlice";
+import {
+  deleteCartProduct,
+  getUserCart,
+  updateCartProduct,
+} from "../features/user/userSlice";
 
 const Cart = () => {
   const dispatch = useDispatch();
-  const [quantity, setQuantity] = useState()
+  const [productUpdateDetail, setProductUpdateDetail] = useState(null);
+  const [totalAmount, setTotalAmount] = useState(null);
   const userCartState = useSelector((state) => state.auth?.cartProducts);
-
+  console.log(totalAmount);
   useEffect(() => {
     dispatch(getUserCart());
   }, [dispatch]);
 
   useEffect(() => {
-    updatedACartProduct()
-  }, [quantity])
+    if (productUpdateDetail !== null) {
+      dispatch(
+        updateCartProduct({
+          cartItemId: productUpdateDetail?.cartItemId,
+          quantity: productUpdateDetail?.quantity,
+        })
+      );
+      setTimeout(() => {
+        dispatch(getUserCart());
+      }, 300);
+    }
+  }, [dispatch, productUpdateDetail]);
 
   const deleteACartProduct = (id) => {
     dispatch(deleteCartProduct(id));
     setTimeout(() => {
       dispatch(getUserCart());
-    }, 300)
+    }, 300);
   };
 
-  const updatedACartProduct = (id) => {
-    dispatch(updateCartProduct({cartItemId: id, quantity}));
-    setTimeout(() => {
-      dispatch(getUserCart());
-    }, 300)
-  };
+  useEffect(() => {
+    let sum = 0;
+    for (let index = 0; index < userCartState?.length; index++) {
+      sum =
+        sum +
+        (Number(userCartState[index].quantity) * userCartState[index].price);
+        setTotalAmount(sum)
+    }
+  }, [userCartState]);
 
   return (
     <>
@@ -84,8 +102,17 @@ const Cart = () => {
                           max={10}
                           name=""
                           id=""
-                          value={quantity ? quantity :  item?.quantity}
-                          onChange={(e) => {setQuantity(e.target.value)}}
+                          value={
+                            productUpdateDetail
+                              ? productUpdateDetail
+                              : item?.quantity
+                          }
+                          onChange={(e) => {
+                            setProductUpdateDetail({
+                              cartItemId: item?._id,
+                              quantity: e.target.value,
+                            });
+                          }}
                         />
                       </div>
                       <div>
@@ -112,13 +139,16 @@ const Cart = () => {
                 Continuar Compra
               </Link>
             </div>
-            <div className="d-flex flex-column align-items-end">
+           {
+            (totalAmount !== null || totalAmount !== 0) && 
+             <div className="d-flex flex-column align-items-end">
               <h4>Total: R$ 4000</h4>
               <p>Taxa e entrega já calculados!</p>
               <Link to="/checkout" className="button">
                 Verificar
               </Link>
             </div>
+           }
           </div>
         </div>
       </Container>
