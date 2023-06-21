@@ -8,6 +8,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { useFormik } from "formik";
 import * as yup from "yup";
 import axios from "axios";
+import { Payment } from "@mercadopago/sdk-react";
 
 let shippingSchema = yup.object({
   firstname: yup.string().required("NOME OBRIGATÓRIO!"),
@@ -17,13 +18,14 @@ let shippingSchema = yup.object({
   city: yup.string().required("CIDADE OBRIGATÓRIO!"),
   country: yup.string().required("PAÍS OBRIGATÓRIO!"),
   pincode: yup.number().required("CÓDIGO PIN OBRIGATÓRIO!"),
-  ohter: yup.string(),
+  other: yup.string(),
 });
 
 const Checkout = () => {
   const dispatch = useDispatch();
   const [totalAmount, setTotalAmount] = useState(null);
   const [shippingInfo, setShippingInfo] = useState(null);
+  const {paymentVisible, setPaymnentVisible} = useState(false)
   const cartState = useSelector((state) => state.auth.cartProducts);
 
   useEffect(() => {
@@ -43,7 +45,7 @@ const Checkout = () => {
       city: "",
       country: "",
       pincode: "",
-      ohter: "",
+      other: "",
     },
     validationSchema: shippingSchema,
     onSubmit: (values) => {
@@ -53,7 +55,7 @@ const Checkout = () => {
 
   const loadScript = (src) => {
     return new Promise((resolve) => {
-      const script = document.createElement("root");
+      const script = document.createElement("script");
       script.src = src;
       script.onLoad = () => {
         resolve(true);
@@ -65,21 +67,11 @@ const Checkout = () => {
     });
   };
 
-  const checkoutHandler = async () => {
-    const res = await loadScript("https://sdk.mercadopago.com/js/v2");
-    if (!res) {
-      alert("Mercado Pago SDK FALHOU");
-      return;
-    }
-    const result = await axios.post(
-      "http://localhost:5000/api/user/order/checkout"
-    );
-    if (!result) {
-      alert("Algo deu Errado!");
-      return;
-    }
-    const { amount, id: order_id, currency } = result.data;
-  };
+  
+
+
+
+  
 
   return (
     <>
@@ -248,6 +240,7 @@ const Checkout = () => {
                 <div className="error ms-2 my-1">
                   {formik.touched.pincode && formik.errors.pincode}
                 </div>
+               
                 <div className="w-100">
                   <div className="d-flex justify-content-between align-items-center ">
                     <Link to="/cart" className="text-dark">
