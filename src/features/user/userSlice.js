@@ -122,6 +122,17 @@ export const forgotPass = createAsyncThunk(
   }
 );
 
+export const resetPass = createAsyncThunk(
+  "user/password/reset",
+  async (data, thunkAPI) => {
+    try {
+      return await authService.resetPassToken(data);
+    } catch (error) {
+      return thunkAPI.rejectWithValue(error);
+    }
+  }
+);
+
 export const getCustomerFromLocalStorage = localStorage.getItem("customer")
   ? JSON.parse(localStorage.getItem("customer"))
   : null;
@@ -319,6 +330,36 @@ export const authSlice = createSlice({
         state.updatedUser = action.payload;
       })
       .addCase(updateAUser.rejected, (state, action) => {
+        state.isLoading = false;
+        state.isError = true;
+        state.isSuccess = false;
+        state.message = action.error;
+      })
+       .addCase(forgotPass.pending, (state) => {
+        state.isLoading = true;
+      })
+      .addCase(forgotPass.fulfilled, (state, action) => {
+        state.isLoading = false;
+        state.isError = false;
+        state.isSuccess = true;
+        state.token = action.payload;
+      })
+      .addCase(forgotPass.rejected, (state, action) => {
+        state.isLoading = false;
+        state.isError = true;
+        state.isSuccess = false;
+        state.message = action.error;
+      })
+      .addCase(resetPass.pending, (state) => {
+        state.isLoading = true;
+      })
+      .addCase(resetPass.fulfilled, (state, action) => {
+        state.isLoading = false;
+        state.isError = false;
+        state.isSuccess = true;
+        state.resetpass = action.payload;
+      })
+      .addCase(resetPass.rejected, (state, action) => {
         state.isLoading = false;
         state.isError = true;
         state.isSuccess = false;

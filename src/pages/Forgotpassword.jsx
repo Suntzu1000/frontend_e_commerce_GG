@@ -1,13 +1,13 @@
 import React from "react";
 import BreadCrumb from "../components/BreadCrump";
 import Meta from "../components/Meta";
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import Container from "../components/Container";
 import CustomInput from "../components/CustomInput";
 import { useFormik } from "formik";
 import * as yup from "yup";
 import { useDispatch } from "react-redux";
-import { loginUser } from "../features/user/userSlice";
+import { forgotPass } from "../features/user/userSlice";
 
 let emailSchema = yup.object({
   email: yup
@@ -17,7 +17,6 @@ let emailSchema = yup.object({
 });
 
 const Forgotpassword = () => {
-  const navigate = useNavigate();
   const dispatch = useDispatch();
   const formik = useFormik({
     initialValues: {
@@ -25,8 +24,7 @@ const Forgotpassword = () => {
     },
     validationSchema: emailSchema,
     onSubmit: (values) => {
-      dispatch(loginUser(values));
-      navigate("/");
+      dispatch(forgotPass(values));
     },
   });
 

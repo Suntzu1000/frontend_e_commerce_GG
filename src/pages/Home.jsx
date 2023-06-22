@@ -36,16 +36,16 @@ import { addWishList } from "../features/products/productsSlice";
 import watch2 from "../images/watch-1.avif";
 import ReactStars from "react-rating-stars-component";
 
+
 const Home = () => {
   const dispatch = useDispatch();
-  const navigate = useNavigate()
+  const navigate = useNavigate();
   const blogState = useSelector((state) => state?.blog?.blog);
   const productState = useSelector((state) => state.product.product);
 
-
   const addToWishList = (id) => {
     dispatch(addWishList(id));
-  }
+  };
 
   const getAllBlogs = useCallback(() => {
     dispatch(getBlogs());
@@ -157,7 +157,7 @@ const Home = () => {
         </div>
       </Container>
 
-      <Container class1="homer-wrapper-2 py-5">
+      {/*<Container class1="homer-wrapper-2 py-5">
         <div className="row">
           <div className="col-12">
             <div className="categories d-flex justify-content-between flex-wrap align-items-center">
@@ -227,7 +227,7 @@ const Home = () => {
             </div>
           </div>
         </div>
-      </Container>
+      </Container>*/}
 
       <Container class1="featured-wrapper py-5 homer-wrapper-2">
         <div className="row">
@@ -238,65 +238,65 @@ const Home = () => {
             productState?.map((item, index) => {
               if (item.tags === "featured") {
                 return (
-                  <div
-            key={index}
-            className={"col-3"}
-          >
-            <div
-            
-              className="product-card position-relative"
-            >
-              <div className="wishlist-icon position-absolute">
-                <button
-                  className="border-0 bg-transparent "
-                  onClick={(_id) => {
-                    addToWishList(item?._id);
-                  }}
-                >
-                  <img src={wish} alt="Produtos" />
-                </button>
-              </div>
-              <div className="product-image">
-                <img
-                  src={item?.images[0].url ? item?.images[0].url : watch2}
-                  className="img-fluid  mx-auto"
-                  alt="Produtos"
-                  width={160}
-                />
-                <img
-                  src={watch2}
-                  className="img-fluid mx-auto "
-                  alt="Produtos"
-                  width={160}
-                />
-              </div>
-              <div className="product-details">
-                <h6 className="brand">{item?.brand}</h6>
-                <h5 className="product-card">{item?.title}</h5>
-                <ReactStars
-                  count={5}
-                  value={item?.totalrating}
-                  size={24}
-                  edit={false}
-                  activeColor={`#ffd700`}
-                />
-                <p className="price">R${item?.price}</p>
-              </div>
-              <div className="action-bar position-absolute">
-                <div className="d-flex flex-column gap-15">
-                  <button className="border-0 bg-transparent ">
-                    <img src={compare} alt="Adicionar em Carrinho" />
-                  </button>
-                  <button className="border-0 bg-transparent ">
-                    <img onClick={() => navigate("/product/"+item?._id)} src={view} alt="Visualizar" />
-                  </button>
-                  <button className="border-0 bg-transparent ">
-                    <img src={cart} alt="Adicionar em Carrinho" />
-                  </button>
-                </div>
-              </div>
-            </div>
-          </div>
+                  <div key={index} className={"col-3"}>
+                    <div className="product-card position-relative">
+                      <div className="wishlist-icon position-absolute">
+                        <button
+                          className="border-0 bg-transparent "
+                          onClick={(_id) => {
+                            addToWishList(item?._id);
+                          }}
+                        >
+                          <img src={wish} alt="Produtos" />
+                        </button>
+                      </div>
+                      <div className="product-image">
+                        <img
+                          src={
+                            item?.images[0].url ? item?.images[0].url : watch2
+                          }
+                          className="img-fluid  mx-auto"
+                          alt="Produtos"
+                          width={160}
+                        />
+                        <img
+                          src={watch2}
+                          className="img-fluid mx-auto "
+                          alt="Produtos"
+                          width={160}
+                        />
+                      </div>
+                      <div className="product-details">
+                        <h6 className="brand">{item?.brand}</h6>
+                        <h5 className="product-card">{item?.title}</h5>
+                        <ReactStars
+                          count={5}
+                          value={item?.totalrating}
+                          size={24}
+                          edit={false}
+                          activeColor={`#ffd700`}
+                        />
+                        <p className="price">R${item?.price}</p>
+                      </div>
+                      <div className="action-bar position-absolute">
+                        <div className="d-flex flex-column gap-15">
+                          <button className="border-0 bg-transparent ">
+                            <img src={compare} alt="Adicionar em Carrinho" />
+                          </button>
+                          <button className="border-0 bg-transparent ">
+                            <img
+                              onClick={() => navigate("/product/" + item?._id)}
+                              src={view}
+                              alt="Visualizar"
+                            />
+                          </button>
+                          <button className="border-0 bg-transparent ">
+                            <img src={cart} alt="Adicionar em Carrinho" />
+                          </button>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
                 );
               }
             })}
@@ -397,64 +397,65 @@ const Home = () => {
             productState?.map((item, index) => {
               if (item.tags === "popular") {
                 return (
-                  <div
-            key={index}
-            className={"col-3"}
-          >
-            <div
-              className="product-card position-relative"
-            >
-              <div className="wishlist-icon position-absolute">
-                <button
-                  className="border-0 bg-transparent "
-                  onClick={(_id) => {
-                    addToWishList(item?._id);
-                  }}
-                >
-                  <img src={wish} alt="Produtos" />
-                </button>
-              </div>
-              <div className="product-image">
-                <img
-                  src={item?.images[0].url ? item?.images[0].url : watch2}
-                  className="img-fluid  mx-auto"
-                  alt="Produtos"
-                  width={160}
-                />
-                <img
-                  src={watch2}
-                  className="img-fluid mx-auto "
-                  alt="Produtos"
-                  width={160}
-                />
-              </div>
-              <div className="product-details">
-                <h6 className="brand">{item?.brand}</h6>
-                <h5 className="product-card">{item?.title}</h5>
-                <ReactStars
-                  count={5}
-                  value={item?.totalrating}
-                  size={24}
-                  edit={false}
-                  activeColor={`#ffd700`}
-                />
-                <p className="price">R${item?.price}</p>
-              </div>
-              <div className="action-bar position-absolute">
-                <div className="d-flex flex-column gap-15">
-                  <button className="border-0 bg-transparent ">
-                    <img src={compare} alt="Adicionar em Carrinho" />
-                  </button>
-                  <button className="border-0 bg-transparent ">
-                    <img onClick={() => navigate("/product/"+item?._id)} src={view} alt="Visualizar" />
-                  </button>
-                  <button className="border-0 bg-transparent ">
-                    <img src={cart} alt="Adicionar em Carrinho" />
-                  </button>
-                </div>
-              </div>
-            </div>
-          </div>
+                  <div key={index} className={"col-3"}>
+                    <div className="product-card position-relative">
+                      <div className="wishlist-icon position-absolute">
+                        <button
+                          className="border-0 bg-transparent "
+                          onClick={(_id) => {
+                            addToWishList(item?._id);
+                          }}
+                        >
+                          <img src={wish} alt="Produtos" />
+                        </button>
+                      </div>
+                      <div className="product-image">
+                        <img
+                          src={
+                            item?.images[0].url ? item?.images[0].url : watch2
+                          }
+                          className="img-fluid  mx-auto"
+                          alt="Produtos"
+                          width={160}
+                        />
+                        <img
+                          src={watch2}
+                          className="img-fluid mx-auto "
+                          alt="Produtos"
+                          width={160}
+                        />
+                      </div>
+                      <div className="product-details">
+                        <h6 className="brand">{item?.brand}</h6>
+                        <h5 className="product-card">{item?.title}</h5>
+                        <ReactStars
+                          count={5}
+                          value={item?.totalrating}
+                          size={24}
+                          edit={false}
+                          activeColor={`#ffd700`}
+                        />
+                        <p className="price">R${item?.price}</p>
+                      </div>
+                      <div className="action-bar position-absolute">
+                        <div className="d-flex flex-column gap-15">
+                          <button className="border-0 bg-transparent ">
+                            <img src={compare} alt="Adicionar em Carrinho" />
+                          </button>
+                          <button className="border-0 bg-transparent ">
+                            <img
+                              onClick={() => navigate("/product/" + item?._id)}
+                              src={view}
+                              alt="Visualizar"
+                            />
+                          </button>
+                          <button className="border-0 bg-transparent ">
+                            <img src={cart} alt="Adicionar em Carrinho" />
+                          </button>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
                 );
               }
             })}
