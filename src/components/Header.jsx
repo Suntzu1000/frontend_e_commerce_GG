@@ -10,6 +10,7 @@ import menu from "../images/menu.svg";
 import { useDispatch, useSelector } from "react-redux";
 import { Typeahead } from "react-bootstrap-typeahead";
 import "react-bootstrap-typeahead/css/Typeahead.css";
+import { getProduct } from "../features/products/productsSlice";
 
 const Header = () => {
   const dispatch = useDispatch();
@@ -79,7 +80,8 @@ const Header = () => {
                   id="pagination-example"
                   onPaginate={() => console.log("Results paginated")}
                   onChange={(selected) => {
-                    navigate(`/product/${selected[0].prod}`);
+                    navigate(`/product/${selected[0]?.prod}`);
+                    dispatch(getProduct(selected[0]?.prod))
                   }}
                   minLength={2}
                   options={productOpt}
