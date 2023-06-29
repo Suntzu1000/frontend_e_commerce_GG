@@ -29,7 +29,7 @@ const OurStore = () => {
   const [sort, setSort] = useState(null);
 
   const getAllProducts = useCallback(() => {
-    dispatch(getProducts());
+    dispatch(getProducts({sort, tag, brand, category, minPrice, maxPrice}));
   }, [dispatch]);
 
   useEffect(() => {

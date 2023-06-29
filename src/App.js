@@ -50,13 +50,13 @@ function App() {
             <Route
               path="my-orders"
               element={
-                  <Orders />
+                 <PrivateRoutes> <Orders /></PrivateRoutes>
               }
             />
              <Route
               path="my-profile"
               element={
-                  <Profile />
+<Profile />
               }
             />
             <Route

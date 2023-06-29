@@ -1,12 +1,13 @@
-import React from "react";
+import React, { useEffect } from "react";
 import BreadCrumb from "../components/BreadCrump";
 import Meta from "../components/Meta";
 import Container from "../components/Container";
 import CustomInput from "../components/CustomInput";
 import { useFormik } from "formik";
 import * as yup from "yup";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { registerUser } from "../features/user/userSlice";
+import { useNavigate } from "react-router-dom";
 
 let signupSchema = yup.object({
   firstname: yup
@@ -21,6 +22,9 @@ let signupSchema = yup.object({
 
 const SignUp = () => {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
+  const authState = useSelector((state) => state?.auth);
+
   const formik = useFormik({
     initialValues: {
       firstname: "",
@@ -34,6 +38,12 @@ const SignUp = () => {
       dispatch(registerUser(values));
     },
   });
+
+  useEffect(() => {
+    if (authState.createdUser !== null && authState.isError === false) {
+      navigate("/");
+    }
+  }, [authState, navigate]);
 
   return (
     <>

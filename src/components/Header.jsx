@@ -55,7 +55,7 @@ const Header = () => {
             </div>
             <div className="col-6">
               <p className="text-end text-white mb-0">
-                Número:{" "}
+                Número:
                 <a className="text-white" href="tel:+62 995396918">
                   62 9 9539-6918
                 </a>
@@ -81,7 +81,7 @@ const Header = () => {
                   onPaginate={() => console.log("Results paginated")}
                   onChange={(selected) => {
                     navigate(`/product/${selected[0]?.prod}`);
-                    dispatch(getProduct(selected[0]?.prod))
+                    dispatch(getProduct(selected[0]?.prod));
                   }}
                   minLength={2}
                   options={productOpt}
@@ -140,7 +140,7 @@ const Header = () => {
                     <img src={cart} alt="Carrinho" />
                     <div className="d-flex flex-column gap-10">
                       <span className="badge bg-white text-dark">
-                        {/*cartState?.length ? cartState?.length : 0*/}
+                        {cartState?.length ? cartState?.length : 0}
                       </span>
                       <p className="mb-0">R${total ? total : 0}</p>
                     </div>
@@ -200,6 +200,7 @@ const Header = () => {
                     <button
                       className=" border-0 bg-transparent text-white text-uppercase "
                       type="button"
+                      onClick={(e) => {handleLogout(e)}}
                     >
                       Sair
                     </button>
