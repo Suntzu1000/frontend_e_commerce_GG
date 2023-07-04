@@ -39,26 +39,16 @@ function App() {
             <Route path="product/:id" element={<SingleProduct />} />
             <Route path="blogs" element={<Blog />} />
             <Route path="blogs/:id" element={<SingleBlog />} />
-            <Route
-              path="cart"
-              element={
-                <PrivateRoutes>
-                  <Cart />
-                </PrivateRoutes>
-              }
-            />
+            <Route path="cart" element={<PrivateRoutes><Cart /></PrivateRoutes>} />
             <Route
               path="my-orders"
               element={
-                 <PrivateRoutes> <Orders /></PrivateRoutes>
+                <PrivateRoutes>
+                  <Orders />
+                </PrivateRoutes>
               }
             />
-             <Route
-              path="my-profile"
-              element={
-<Profile />
-              }
-            />
+            <Route path="my-profile" element={<Profile />} />
             <Route
               path="checkout"
               element={
@@ -79,20 +69,11 @@ function App() {
             <Route
               path="login"
               element={
-                <OpenRoutes>
-                  <Login />
-                </OpenRoutes>
+                  <OpenRoutes><Login /></OpenRoutes>
               }
             />
             <Route path="forgot-password" element={<Forgotpassword />} />
-            <Route
-              path="cadastrar"
-              element={
-                <OpenRoutes>
-                  <SignUp />
-                </OpenRoutes>
-              }
-            />
+            <Route path="cadastrar" element={<OpenRoutes><SignUp /></OpenRoutes>} />
             <Route path="reset-password/:token" element={<ResetPassword />} />
             <Route path="private-policy" element={<PrivacyPolicy />} />
             <Route path="refund-policy" element={<RefundPolicy />} />

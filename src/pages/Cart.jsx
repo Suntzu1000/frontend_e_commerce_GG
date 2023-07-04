@@ -16,11 +16,24 @@ const Cart = () => {
   const dispatch = useDispatch();
   const [productUpdateDetail, setProductUpdateDetail] = useState(null);
   const [totalAmount, setTotalAmount] = useState(null);
-  const userCartState = useSelector((state) => state.auth?.cartProducts);
-  console.log(totalAmount);
+  const userCartState = useSelector((state) => state?.auth?.cartProducts);
+
+
+  const getTokenFromLocalStorage = localStorage.getItem("customer")
+  ? JSON.parse(localStorage.getItem("customer"))
+  : null;
+ const config2 = {
+  headers: {
+    Authorization: `Bearer ${
+      getTokenFromLocalStorage !== null ? getTokenFromLocalStorage.token : ""
+    }`,
+    Accept: "application/json",
+  },
+ };
+
   useEffect(() => {
-    dispatch(getUserCart());
-  }, [dispatch]);
+    dispatch(getUserCart(config2));
+  });
 
   useEffect(() => {
     if (productUpdateDetail !== null) {
@@ -31,15 +44,17 @@ const Cart = () => {
         })
       );
       setTimeout(() => {
-        dispatch(getUserCart());
+        dispatch(getUserCart(config2));
       }, 300);
     }
   }, [dispatch, productUpdateDetail]);
 
+  
+
   const deleteACartProduct = (id) => {
     dispatch(deleteCartProduct(id));
     setTimeout(() => {
-      dispatch(getUserCart());
+      dispatch(getUserCart(config2));
     }, 300);
   };
 

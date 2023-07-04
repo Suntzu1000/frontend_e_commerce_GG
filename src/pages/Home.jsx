@@ -8,10 +8,6 @@ import main from "../images/main-banner-1.jpg";
 import { services } from "../utils/Data";
 import catbanner from "../images/catbanner-01.jpg";
 import catbanner02 from "../images/catbanner-02.jpg";
-import camera from "../images/camera.png";
-import tv from "../images/tv.jpg";
-import watch from "../images/watch.jpg";
-import fone from "../images/headphone.jpg";
 import famous from "../images/famous-1.webp";
 import famous2 from "../images/famous-2.webp";
 import famous3 from "../images/famous-3.webp";
@@ -298,7 +294,7 @@ const Home = () => {
                     </div>
                   </div>
                 );
-              }
+              } return true
             })}
         </div>
       </Container>
@@ -382,6 +378,7 @@ const Home = () => {
                   />
                 );
               }
+              return true;
             })}
         </div>
       </Container>
@@ -457,7 +454,7 @@ const Home = () => {
                     </div>
                   </div>
                 );
-              }
+              } return true
             })}
         </div>
       </Container>
@@ -528,6 +525,7 @@ const Home = () => {
                   </div>
                 );
               }
+              return true
             })}
         </div>
       </Container>

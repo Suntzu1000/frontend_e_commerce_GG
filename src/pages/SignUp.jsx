@@ -12,10 +12,10 @@ import { useNavigate } from "react-router-dom";
 let signupSchema = yup.object({
   firstname: yup
     .string()
-    .email("EMAIL DEVE SER VÁLIDO!")
+
     .required("NOME OBRIGATÓRIO!"),
   lastname: yup.string().required("SOBRENOME OBRIGATÓRIO!"),
-  email: yup.string().required("EMAIL DEVE SER VÁLIDO!"),
+  email: yup.string().email("EMAIL DEVE SER VÁLIDO!").required("EMAIL DEVE SER VÁLIDO!"),
   mobile: yup.number().required("TELEFONE OBRIGATÓRIO"),
   password: yup.string().required("SENHA OBRIGATÓRIA!"),
 });
@@ -40,10 +40,11 @@ const SignUp = () => {
   });
 
   useEffect(() => {
-    if (authState.createdUser !== null && authState.isError === false) {
+    if(authState.createdUser !== undefined && authState.isError === false) {
       navigate("/");
     }
   }, [authState, navigate]);
+
 
   return (
     <>

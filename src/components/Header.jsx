@@ -140,7 +140,7 @@ const Header = () => {
                     <img src={cart} alt="Carrinho" />
                     <div className="d-flex flex-column gap-10">
                       <span className="badge bg-white text-dark">
-                        {cartState?.length ? cartState?.length : 0}
+                        {cartState && cartState?.length ? cartState?.length : 0}
                       </span>
                       <p className="mb-0">R${total ? total : 0}</p>
                     </div>

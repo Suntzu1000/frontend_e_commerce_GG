@@ -1,32 +1,29 @@
 import axios from "axios";
 import { base_url } from "../../utils/axiosConfig";
 
-export const getTokenFromLocalStorage = localStorage.getItem("customer")
+ const getTokenFromLocalStorage = localStorage.getItem("customer")
   ? JSON.parse(localStorage.getItem("customer"))
   : null;
 
-export const config = {
+ const config = {
   headers: {
-    Authorization: `Bearer ${
-      getTokenFromLocalStorage !== null ? getTokenFromLocalStorage.token : ""
-    }`,
-    Accept: "application/json",
+    Authorization: `Bearer ${getTokenFromLocalStorage !== null ? getTokenFromLocalStorage.token : ""}`,
+    Accept: `application/json`,
   },
 };
 
 const register = async (userData) => {
   const response = await axios.post(`${base_url}user/cadastrar`, userData);
-  if (response.data) {
     if (response.data) {
-      localStorage.setItem("user", JSON.stringify(response.data));
+      return response.data;
     }
-    return response.data;
-  }
+    
 };
 
 const login = async (userData) => {
   const response = await axios.post(`${base_url}user/login`, userData);
   if (response.data) {
+    localStorage.setItem("customer", JSON.stringify(response.data));
     return response.data;
   }
 };
@@ -42,17 +39,18 @@ const addToCart = async (cartData) => {
     return response.data;
   }
 };
-const getCart = async () => {
-  const response = await axios.get(`${base_url}user/cart`, config);
+const getCart = async (data) => {
+  console.log(data);
+  const response = await axios.get(`${base_url}user/cart`, data);
   if (response.data) {
     return response.data;
   }
 };
 
-const removeProductFromCart = async (cartItemId) => {
+const removeProductFromCart = async (data) => {
   const response = await axios.delete(
-    `${base_url}user/delete-product-cart/${cartItemId}`,
-    config
+    `${base_url}user/delete-product-cart/${data.id}`,
+    data.config2
   );
   if (response.data) {
     return response.data;
@@ -88,7 +86,12 @@ const getUserOrders = async () => {
 };
 
 const updateUser = async (data) => {
-  const response = await axios.put(`${base_url}user/edit-user`, data.data, data.config2);
+  console.log(data);
+  const response = await axios.put(
+    `${base_url}user/edit-user`,
+    data.data,
+    data.config2
+  );
   if (response.data) {
     return response.data;
   }

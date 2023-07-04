@@ -12,12 +12,3 @@ export const config = {
     Accept: "application/json",
   },
 };
-
-export const config2 = {
-  headers: {
-    Authorization: `Bearer ${
-      getTokenFromLocalStorage !== null ? getTokenFromLocalStorage.token : ""
-    }`,
-    Accept: "application/json",
-  },
-};

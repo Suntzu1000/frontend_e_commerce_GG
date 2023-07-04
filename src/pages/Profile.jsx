@@ -6,7 +6,6 @@ import * as yup from "yup";
 import { useDispatch, useSelector } from "react-redux";
 import { updateAUser } from "../features/user/userSlice";
 import {FiEdit} from "react-icons/fi"
-import { getTokenFromLocalStorage } from "../utils/axiosConfig";
 
 let profileSchema = yup.object({
   firstname: yup.string().required("NOME OBRIGATÓRIO"),
@@ -23,14 +22,17 @@ const Profile = () => {
   const userState = useSelector((state) => state?.auth?.user);
   const [edit, setEdit] = useState(true);
 
-  const config2 = {
-    headers: {
-      Authorization: `Bearer ${
-        getTokenFromLocalStorage !== null ? getTokenFromLocalStorage.token : ""
-      }`,
-      Accept: "application/json",
-    },
-  };
+ const getTokenFromLocalStorage = localStorage.getItem("customer")
+  ? JSON.parse(localStorage.getItem("customer"))
+  : null;
+ const config2 = {
+  headers: {
+    Authorization: `Bearer ${
+      getTokenFromLocalStorage !== null ? getTokenFromLocalStorage.token : ""
+    }`,
+    Accept: "application/json",
+  },
+};
 
   const formik = useFormik({
     initialValues: {

@@ -59,9 +59,9 @@ export const createAnOrder = createAsyncThunk(
 
 export const getUserCart = createAsyncThunk(
   "user/cart/get",
-  async (thunkAPI) => {
+  async (data, thunkAPI) => {
     try {
-      return await authService.getCart();
+      return await authService.getCart(data);
     } catch (error) {
       return thunkAPI.rejectWithValue(error);
     }
@@ -329,6 +329,7 @@ export const authSlice = createSlice({
         state.isSuccess = true;
         state.updatedUser = action.payload;
         if (state.isSuccess === true) {
+          console.log(action.payload);
           let currentUserData = JSON.parse(localStorage.getItem("customer"));
           let newUserData = {
             _id: currentUserData?._id,

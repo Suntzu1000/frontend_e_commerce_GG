@@ -1,11 +1,8 @@
 import BreadCrumb from "../components/BreadCrump";
 import React, { useCallback, useEffect, useState } from "react";
 import Meta from "../components/Meta";
-import ReactStars from "react-rating-stars-component";
 import ProductCard from "../components/ProductCard";
-import Color from "../components/Color";
 import Container from "../components/Container";
-import watch from "../images/watch.jpg";
 import gr4 from "../images/gr4.svg";
 import gr2 from "../images/gr2.svg";
 import gr3 from "../images/gr3.svg";
@@ -30,7 +27,7 @@ const OurStore = () => {
 
   const getAllProducts = useCallback(() => {
     dispatch(getProducts({sort, tag, brand, category, minPrice, maxPrice}));
-  }, [dispatch]);
+  }, [dispatch, sort, tag, brand, category, minPrice, maxPrice]);
 
   useEffect(() => {
     let newBrands = [];
