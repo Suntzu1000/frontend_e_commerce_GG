@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useMemo, useState } from "react";
 import BreadCrumb from "../components/BreadCrump";
 import Meta from "../components/Meta";
 import watch from "../images/watch.jpg";
@@ -22,37 +22,39 @@ const Cart = () => {
   const getTokenFromLocalStorage = localStorage.getItem("customer")
   ? JSON.parse(localStorage.getItem("customer"))
   : null;
- const config2 = {
-  headers: {
-    Authorization: `Bearer ${
-      getTokenFromLocalStorage !== null ? getTokenFromLocalStorage.token : ""
-    }`,
-    Accept: "application/json",
-  },
- };
+  const config2 = useMemo(() => ({
+    headers: {
+      Authorization: `Bearer ${
+        getTokenFromLocalStorage !== null ? getTokenFromLocalStorage.token : ""
+      }`,
+      Accept: "application/json",
+    },
+  }), [getTokenFromLocalStorage]);
+  
 
-  useEffect(() => {
-    dispatch(getUserCart(config2));
-  });
+ useEffect(() => {
+  dispatch(getUserCart(config2));
+}, []);
 
-  useEffect(() => {
-    if (productUpdateDetail !== null) {
-      dispatch(
-        updateCartProduct({
-          cartItemId: productUpdateDetail?.cartItemId,
-          quantity: productUpdateDetail?.quantity,
-        })
-      );
-      setTimeout(() => {
-        dispatch(getUserCart(config2));
-      }, 300);
-    }
-  }, [dispatch, productUpdateDetail]);
+useEffect(() => {
+  if (productUpdateDetail !== null) {
+    dispatch(
+      updateCartProduct({
+        cartItemId: productUpdateDetail?.cartItemId,
+        quantity: productUpdateDetail?.quantity,
+      })
+    );
+    setTimeout(() => {
+      dispatch(getUserCart(config2));
+    }, 300);
+  }
+}, [dispatch, productUpdateDetail, config2]);
+
 
   
 
   const deleteACartProduct = (id) => {
-    dispatch(deleteCartProduct(id));
+    dispatch(deleteCartProduct({id: id, config2: config2 }));
     setTimeout(() => {
       dispatch(getUserCart(config2));
     }, 300);
@@ -95,14 +97,14 @@ const Cart = () => {
                       <div className="w-75">
                         <h5 className="title">{item?.productId?.title}</h5>
                         <p>Tamanho: gdfad</p>
-                        <p className="d-flex gap-3">
+                        <div className="d-flex gap-3">
                           Cor:
                           <ul className="colors ps-0">
                             <li
                               style={{ backgroundColor: item?.color?.title }}
                             ></li>
                           </ul>
-                        </p>
+                        </div>
                       </div>
                     </div>
                     <div className="cart-col-2">
@@ -157,7 +159,7 @@ const Cart = () => {
            {
             (totalAmount !== null || totalAmount !== 0) && 
              <div className="d-flex flex-column align-items-end">
-              <h4>Total: R$ 4000</h4>
+              <h4>Total: R$</h4>
               <p>Taxa e entrega já calculados!</p>
               <Link to="/checkout" className="button">
                 Verificar
