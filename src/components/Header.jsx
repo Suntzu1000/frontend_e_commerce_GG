@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useMemo, useState } from "react";
 import { NavLink, Link, useNavigate } from "react-router-dom";
 import { BsSearch } from "react-icons/bs";
 import logo from "../images/Logo.png";
@@ -11,6 +11,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { Typeahead } from "react-bootstrap-typeahead";
 import "react-bootstrap-typeahead/css/Typeahead.css";
 import { getProduct } from "../features/products/productsSlice";
+import { getUserCart } from "../features/user/userSlice";
 
 const Header = () => {
   const dispatch = useDispatch();
@@ -44,6 +45,27 @@ const Header = () => {
     localStorage.clear();
     window.location.reload();
   };
+
+  const getTokenFromLocalStorage = localStorage.getItem("customer")
+    ? JSON.parse(localStorage.getItem("customer"))
+    : null;
+  const config2 = useMemo(
+    () => ({
+      headers: {
+        Authorization: `Bearer ${
+          getTokenFromLocalStorage !== null
+            ? getTokenFromLocalStorage.token
+            : ""
+        }`,
+        Accept: "application/json",
+      },
+    }),
+    [getTokenFromLocalStorage]
+  );
+
+  useEffect(() => {
+    dispatch(getUserCart(config2))
+  }, [dispatch])
 
   return (
     <>

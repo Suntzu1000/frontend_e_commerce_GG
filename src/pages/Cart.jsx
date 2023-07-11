@@ -18,46 +18,46 @@ const Cart = () => {
   const [totalAmount, setTotalAmount] = useState(null);
   const userCartState = useSelector((state) => state?.auth?.cartProducts);
 
-
   const getTokenFromLocalStorage = localStorage.getItem("customer")
-  ? JSON.parse(localStorage.getItem("customer"))
-  : null;
-  const config2 = useMemo(() => ({
-    headers: {
-      Authorization: `Bearer ${
-        getTokenFromLocalStorage !== null ? getTokenFromLocalStorage.token : ""
-      }`,
-      Accept: "application/json",
-    },
-  }), [getTokenFromLocalStorage]);
-  
+    ? JSON.parse(localStorage.getItem("customer"))
+    : null;
+  const config2 = useMemo(
+    () => ({
+      headers: {
+        Authorization: `Bearer ${
+          getTokenFromLocalStorage !== null
+            ? getTokenFromLocalStorage.token
+            : ""
+        }`,
+        Accept: "application/json",
+      },
+    }),
+    [getTokenFromLocalStorage]
+  );
 
- useEffect(() => {
-  dispatch(getUserCart(config2));
-}, []);
+  useEffect(() => {
+    dispatch(getUserCart(config2));
+  }, [dispatch]);
 
-useEffect(() => {
-  if (productUpdateDetail !== null) {
-    dispatch(
-      updateCartProduct({
-        cartItemId: productUpdateDetail?.cartItemId,
-        quantity: productUpdateDetail?.quantity,
-      })
-    );
-    setTimeout(() => {
-      dispatch(getUserCart(config2));
-    }, 300);
-  }
-}, [dispatch, productUpdateDetail, config2]);
-
-
-  
+  useEffect(() => {
+    if (productUpdateDetail !== null) {
+      dispatch(
+        updateCartProduct({
+          cartItemId: productUpdateDetail?.cartItemId,
+          quantity: productUpdateDetail?.quantity,
+        })
+      );
+      setTimeout(() => {
+        dispatch(getUserCart(config2));
+      }, 200);
+    }
+  }, [dispatch, productUpdateDetail, config2]);
 
   const deleteACartProduct = (id) => {
-    dispatch(deleteCartProduct({id: id, config2: config2 }));
+    dispatch(deleteCartProduct({ id: id, config2: config2 }));
     setTimeout(() => {
       dispatch(getUserCart(config2));
-    }, 300);
+    }, 200);
   };
 
   useEffect(() => {
@@ -65,8 +65,8 @@ useEffect(() => {
     for (let index = 0; index < userCartState?.length; index++) {
       sum =
         sum +
-        (Number(userCartState[index].quantity) * userCartState[index].price);
-        setTotalAmount(sum)
+        Number(userCartState[index].quantity) * userCartState[index].price;
+      setTotalAmount(sum);
     }
   }, [userCartState]);
 
@@ -96,9 +96,8 @@ useEffect(() => {
                       </div>
                       <div className="w-75">
                         <h5 className="title">{item?.productId?.title}</h5>
-                        <p>Tamanho: gdfad</p>
                         <div className="d-flex gap-3">
-                          Cor:
+                          <p>Cor:</p>
                           <ul className="colors ps-0">
                             <li
                               style={{ backgroundColor: item?.color?.title }}
@@ -117,13 +116,9 @@ useEffect(() => {
                           type="number"
                           min={1}
                           max={10}
-                          name=""
-                          id=""
-                          value={
-                            productUpdateDetail
-                              ? productUpdateDetail
-                              : item?.quantity
-                          }
+                          name={"quantity" + item?._id}
+                          id={"cart" + item?._id}
+                          value={item?.quantity}
                           onChange={(e) => {
                             setProductUpdateDetail({
                               cartItemId: item?._id,
@@ -156,16 +151,15 @@ useEffect(() => {
                 Continuar Compra
               </Link>
             </div>
-           {
-            (totalAmount !== null || totalAmount !== 0) && 
-             <div className="d-flex flex-column align-items-end">
-              <h4>Total: R$</h4>
-              <p>Taxa e entrega já calculados!</p>
-              <Link to="/checkout" className="button">
-                Verificar
-              </Link>
-            </div>
-           }
+            {(totalAmount !== null || totalAmount !== 0) && (
+              <div className="d-flex flex-column align-items-end">
+                <h4>Total: R$</h4>
+                <p>Taxa e entrega já calculados!</p>
+                <Link to="/checkout" className="button">
+                  Verificar
+                </Link>
+              </div>
+            )}
           </div>
         </div>
       </Container>

@@ -10,7 +10,7 @@ const Layout = () => {
       <Header />
       <Outlet />
       <Footer />
-      <ToastContainer position="top-right" limit={1} />
+      <ToastContainer position="top-right" limit={5} />
     </>
   );
 };

@@ -1,4 +1,4 @@
-import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
+import { createSlice, createAsyncThunk, createAction } from "@reduxjs/toolkit";
 import { authService } from "./userService";
 import { toast } from "react-toastify";
 
@@ -67,6 +67,18 @@ export const getUserCart = createAsyncThunk(
     }
   }
 );
+
+export const deleteUserCart = createAsyncThunk(
+  "user/cart/delete",
+  async (thunkAPI) => {
+    try {
+      return await authService.emptyCart();
+    } catch (error) {
+      return thunkAPI.rejectWithValue(error);
+    }
+  }
+);
+
 export const getOrders = createAsyncThunk(
   "user/order/get",
   async (thunkAPI) => {
@@ -132,6 +144,8 @@ export const resetPass = createAsyncThunk(
     }
   }
 );
+
+export const resetState = createAction("Reset_all")
 
 export const getCustomerFromLocalStorage = localStorage.getItem("customer")
   ? JSON.parse(localStorage.getItem("customer"))
@@ -340,7 +354,7 @@ export const authSlice = createSlice({
             mobile: action?.payload?.mobile,
           };
           localStorage.setItem("customer", JSON.stringify(newUserData));
-          state.user = newUserData
+          state.user = newUserData;
           toast.success("ATUALIZADO!");
         }
       })
@@ -373,14 +387,43 @@ export const authSlice = createSlice({
         state.isError = false;
         state.isSuccess = true;
         state.resetpass = action.payload;
+        if (state.isSuccess) {
+          toast.success("SENHA ATUALIZADA!");
+        }
       })
       .addCase(resetPass.rejected, (state, action) => {
         state.isLoading = false;
         state.isError = true;
         state.isSuccess = false;
         state.message = action.error;
-      });
+        if (state.isError) {
+          toast.error("ALGO DEU CERTO!");
+        }
+      })
+      .addCase(deleteUserCart.pending, (state) => {
+        state.isLoading = true;
+      })
+      .addCase(deleteUserCart.fulfilled, (state, action) => {
+        state.isLoading = false;
+        state.isError = false;
+        state.isSuccess = true;
+        state.deletedCart = action.payload;
+        if (state.isSuccess) {
+          toast.success("DELETADO!");
+        }
+      })
+      .addCase(deleteUserCart.rejected, (state, action) => {
+        state.isLoading = false;
+        state.isError = true;
+        state.isSuccess = false;
+        state.message = action.error;
+        if (state.isError) {
+          toast.error("ALGO DEU CERTO!");
+        }
+      }).addCase(resetState, () => initialState);
   },
 });
 
 export default authSlice.reducer;
+
+

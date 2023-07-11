@@ -1,5 +1,5 @@
 import BreadCrumb from "../components/BreadCrump";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useMemo, useState } from "react";
 import ReactStars from "react-rating-stars-component";
 import ReactImageZoom from "react-image-zoom";
 import Meta from "../components/Meta";
@@ -33,6 +33,19 @@ const SingleProduct = () => {
   const productState = useSelector((state) => state?.product?.singleProduct);
   const cartState = useSelector((state) => state?.auth?.cartProducts);
 
+  const getTokenFromLocalStorage = localStorage.getItem("customer")
+  ? JSON.parse(localStorage.getItem("customer"))
+  : null;
+  
+  const config2 = useMemo(() => ({
+    headers: {
+      Authorization: `Bearer ${
+        getTokenFromLocalStorage !== null ? getTokenFromLocalStorage.token : ""
+      }`,
+      Accept: "application/json",
+    },
+  }), [getTokenFromLocalStorage]);
+
   useEffect(() => {
     let data = [];
     for (let index = 0; index < productState?.length; index++) {
@@ -46,7 +59,7 @@ const SingleProduct = () => {
 
   useEffect(() => {
     dispatch(getProduct(getProductId));
-    dispatch(getUserCart());
+    dispatch(getUserCart(config2));
     dispatch(getProducts());
   }, [dispatch, getProductId]);
 
@@ -201,7 +214,7 @@ const SingleProduct = () => {
                 {alreadyAdded === false && (
                   <>
                     <div className="d-flex gap-10 flex-column mt-2 mb-3">
-                      <h3 className="product-heading">Color:</h3>
+                      <h3 className="product-heading">Cor:</h3>
                       <Color
                         setColor={setColor}
                         colorData={productState?.color}
@@ -243,7 +256,7 @@ const SingleProduct = () => {
                       }}
                     >
                       {alreadyAdded
-                        ? "Ir para Carrinho"
+                        ? "Carrinho"
                         : "Adicionar no Carrinho"}
                     </button>
                     <button to="/cadastrar" className="button signup">
