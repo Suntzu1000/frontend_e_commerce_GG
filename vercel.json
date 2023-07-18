@@ -1,8 +1,0 @@
-{
-    "name": "frontend-ecommerce",
-    "version": "0.1.0",
-    "scripts": {
-      "build": "react-scripts build"
-    }
-  }
-  
