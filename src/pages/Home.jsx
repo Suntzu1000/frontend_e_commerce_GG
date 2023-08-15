@@ -4,10 +4,7 @@ import Marquee from "react-fast-marquee";
 import BlogCard from "../components/BlogCard";
 import SpecialProduct from "../components/SpecialProduct";
 import Container from "../components/Container";
-import main from "../images/main-banner-1.jpg";
 import { services } from "../utils/Data";
-import catbanner from "../images/catbanner-01.jpg";
-import catbanner02 from "../images/catbanner-02.jpg";
 import famous from "../images/famous-1.webp";
 import famous2 from "../images/famous-2.webp";
 import famous3 from "../images/famous-3.webp";
@@ -31,7 +28,6 @@ import cart from "../images/add-cart.svg";
 import { addWishList } from "../features/products/productsSlice";
 import watch2 from "../images/watch-1.avif";
 import ReactStars from "react-rating-stars-component";
-
 
 const Home = () => {
   const dispatch = useDispatch();
@@ -58,92 +54,54 @@ const Home = () => {
 
   return (
     <>
-      <Container class1="home-wrapper-1 py-5">
-        <div className="row">
-          <div className="col-6">
-            <div className="main-banner position-relative p-3 ">
-              <img
-                src={main}
-                className="img-fluid rounded-3"
-                alt="Produtos Eletrônicos"
-              />
-              <div className="main-banner-content position-absolute">
-                <h4>O Melhor valor está aqui!</h4>
-                <h5>IPAD S3</h5>
-                <p>De R$ 999 ou R$41,62/mês</p>
-                <Link className="button">Comprar</Link>
-              </div>
-            </div>
-          </div>
-          <div className="col-6">
-            <div className="d-flex flex-wrap justify-content-between align-items-center">
-              <div className="small-banner position-relative  p-3">
-                <img
-                  src={catbanner}
-                  className="img-fluid rounded-3"
-                  alt="Produtos Eletrônicos"
-                />
-                <div className="small-banner-content position-absolute">
-                  <h4>O Melhor valor está aqui!</h4>
-                  <h5>IPAD S3</h5>
-                  <p>De R$ 999 ou R$41,62/mês</p>
-                </div>
-              </div>
-
-              <div className="small-banner position-relative  ">
-                <img
-                  src={catbanner02}
-                  className="img-fluid rounded-3"
-                  alt="Produtos Eletrônicos"
-                />
-                <div className="small-banner-content position-absolute">
-                  <h4>Novos Produtos</h4>
-                  <h5>IPAD S3</h5>
-                  <p>De R$ 999 ou R$41,62/mês</p>
-                </div>
-              </div>
-
-              <div className="small-banner position-relative  p-3">
-                <img
-                  src={catbanner}
-                  className="img-fluid rounded-3"
-                  alt="Produtos Eletrônicos"
-                />
-                <div className="small-banner-content position-absolute">
-                  <h4>O Melhor valor está aqui!</h4>
-                  <h5>IPAD S3</h5>
-                  <p>De R$ 999 ou R$41,62/mês</p>
-                </div>
-              </div>
-
-              <div className="small-banner position-relative  ">
-                <img
-                  src={catbanner02}
-                  className="img-fluid rounded-3"
-                  alt="Produtos Eletrônicos"
-                />
-                <div className="small-banner-content position-absolute">
-                  <h4>Novos Produtos</h4>
-                  <h5>IPAD S3</h5>
-                  <p>De R$ 999 ou R$41,62/mês</p>
-                </div>
-              </div>
-            </div>
-          </div>
+      <Container className="mx-auto px-4 sm:px-6 lg:px-8 py-5">
+        <div className="flex flex-wrap -m-4">
+          {productState &&
+            productState?.map((item, ind) => {
+              if (item.tags === "popular") {
+                const formattedPrice = new Intl.NumberFormat("pt-BR", {
+                  style: "currency",
+                  currency: "BRL",
+                }).format(item.price);
+                return (
+                  <div className="lg:w-1/2 p-4" key={ind}>
+                    <div className="h-full bg-white p-8 rounded shadow-lg flex flex-col justify-between">
+                      <img
+                        src={item.images[0].url}
+                        className="w-[100%]  h-[100%] rounded-t hover:scale-125 transition duration-300"
+                        alt="Produtos Eletrônicos"
+                      />
+                      <div className="mt-6">
+                        <h2 className="text-2xl font-semibold text-gray-900">
+                          {item.title}
+                        </h2>
+                        <p className="mt-2 text-lg text-gray-600">
+                          {formattedPrice}
+                        </p>
+                        <Link className="mt-4 inline-block bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
+                          Comprar
+                        </Link>
+                      </div>
+                    </div>
+                  </div>
+                );
+              }
+              return true;
+            })}
         </div>
       </Container>
 
       <Container class1="home-wrapper-2 py-5">
         <div className="row">
           <div className="col-12">
-            <div className="services d-flex align-items-center justify-content-between">
+            <div className="services flex flex-wrap justify-between">
               {services?.map((i, j) => {
                 return (
-                  <div className="d-flex align-items-center gap-15" key={j}>
-                    <img src={i.image} alt="Serviços" />
+                  <div className="flex items-center gap-4 mb-4" key={j}>
+                    <img src={i.image} alt="Serviços" className="w-12 h-12" />
                     <div>
-                      <h6>{i.title}</h6>
-                      <p className="mb-0">{i.tagline}</p>
+                      <h6 className="font-semibold text-lg">{i.title}</h6>
+                      <p className="text-gray-600">{i.tagline}</p>
                     </div>
                   </div>
                 );
@@ -153,151 +111,78 @@ const Home = () => {
         </div>
       </Container>
 
-      {/*<Container class1="homer-wrapper-2 py-5">
-        <div className="row">
-          <div className="col-12">
-            <div className="categories d-flex justify-content-between flex-wrap align-items-center">
-              <div className="d-flex gap-30 align-items-center">
-                <div>
-                  <h6>Cameras</h6>
-                  <p>10 items</p>
+      <Container class1="featured-wrapper py-5 home-wrapper-2">
+  <div className="row">
+    <div className="col-12">
+      <h3 className="section-heading">Coleção em Destaque</h3>
+    </div>
+    {productState &&
+      productState?.map((item, index) => {
+        if (item.tags === "featured") {
+          return (
+            <div key={index} className="col-3">
+              <div className="product-card relative">
+                <div className="wishlist-icon absolute">
+                  <button
+                    className="border-0 bg-transparent"
+                    onClick={() => {
+                      addToWishList(item?._id);
+                    }}
+                  >
+                    <img src={wish} alt="Produtos" />
+                  </button>
                 </div>
-                <img src={camera} alt="camera" />
-              </div>
-
-              <div className="d-flex gap align-items-center">
-                <div>
-                  <h6>Smart Tv</h6>
-                  <p>10 items</p>
+                <div className="product-image">
+                  <img
+                    src={item?.images[0].url ? item?.images[0].url : watch2}
+                    className="img-fluid mx-auto"
+                    alt="Produtos"
+                    width={160}
+                  />
+                  <img
+                    src={watch2}
+                    className="img-fluid mx-auto"
+                    alt="Produtos"
+                    width={160}
+                  />
                 </div>
-                <img src={tv} alt="TV" />
-              </div>
-
-              <div className="d-flex gap align-items-center">
-                <div>
-                  <h6>Relógio Dígital </h6>
-                  <p>10 items</p>
+                <div className="product-details">
+                  <h6 className="brand">{item?.brand}</h6>
+                  <h5 className="product-card">{item?.title}</h5>
+                  <ReactStars
+                    count={5}
+                    value={item?.totalrating}
+                    size={24}
+                    edit={false}
+                    activeColor="#ffd700"
+                  />
+                  <p className="price">R${item?.price}</p>
                 </div>
-                <img src={watch} alt="" />
-              </div>
-
-              <div className="d-flex gap align-items-center">
-                <div>
-                  <h6>Fone de Ouvido</h6>
-                  <p>10 items</p>
+                <div className="action-bar absolute">
+                  <div className="flex flex-col gap-15">
+                    <button className="border-0 bg-transparent">
+                      <img src={compare} alt="Adicionar em Carrinho" />
+                    </button>
+                    <button className="border-0 bg-transparent">
+                      <img
+                        onClick={() => navigate("/product/" + item?._id)}
+                        src={view}
+                        alt="Visualizar"
+                      />
+                    </button>
+                    <button className="border-0 bg-transparent">
+                      <img src={cart} alt="Adicionar em Carrinho" />
+                    </button>
+                  </div>
                 </div>
-                <img src={fone} alt="" />
-              </div>
-
-              <div className="d-flex gap align-items-center">
-                <div>
-                  <h6>Cameras</h6>
-                  <p>10 items</p>
-                </div>
-                <img src={camera} alt="" />
-              </div>
-
-              <div className="d-flex gap align-items-center">
-                <div>
-                  <h6>Smart Tv</h6>
-                  <p>10 items</p>
-                </div>
-                <img src={tv} alt="" />
-              </div>
-
-              <div className="d-flex gap align-items-center">
-                <div>
-                  <h6>Relógio Dígital </h6>
-                  <p>10 items</p>
-                </div>
-                <img src={watch} alt="" />
-              </div>
-
-              <div className="d-flex gap align-items-center">
-                <div>
-                  <h6>Fone de Ouvido</h6>
-                  <p>10 items</p>
-                </div>
-                <img src={fone} alt="" />
               </div>
             </div>
-          </div>
-        </div>
-      </Container>*/}
-
-      <Container class1="featured-wrapper py-5 homer-wrapper-2">
-        <div className="row">
-          <div className="col-12">
-            <h3 className="section-heading">Coleção em Destaque</h3>
-          </div>
-          {productState &&
-            productState?.map((item, index) => {
-              if (item.tags === "featured") {
-                return (
-                  <div key={index} className={"col-3"}>
-                    <div className="product-card position-relative">
-                      <div className="wishlist-icon position-absolute">
-                        <button
-                          className="border-0 bg-transparent "
-                          onClick={(_id) => {
-                            addToWishList(item?._id);
-                          }}
-                        >
-                          <img src={wish} alt="Produtos" />
-                        </button>
-                      </div>
-                      <div className="product-image">
-                        <img
-                          src={
-                            item?.images[0].url ? item?.images[0].url : watch2
-                          }
-                          className="img-fluid  mx-auto"
-                          alt="Produtos"
-                          width={160}
-                        />
-                        <img
-                          src={watch2}
-                          className="img-fluid mx-auto "
-                          alt="Produtos"
-                          width={160}
-                        />
-                      </div>
-                      <div className="product-details">
-                        <h6 className="brand">{item?.brand}</h6>
-                        <h5 className="product-card">{item?.title}</h5>
-                        <ReactStars
-                          count={5}
-                          value={item?.totalrating}
-                          size={24}
-                          edit={false}
-                          activeColor={`#ffd700`}
-                        />
-                        <p className="price">R${item?.price}</p>
-                      </div>
-                      <div className="action-bar position-absolute">
-                        <div className="d-flex flex-column gap-15">
-                          <button className="border-0 bg-transparent ">
-                            <img src={compare} alt="Adicionar em Carrinho" />
-                          </button>
-                          <button className="border-0 bg-transparent ">
-                            <img
-                              onClick={() => navigate("/product/" + item?._id)}
-                              src={view}
-                              alt="Visualizar"
-                            />
-                          </button>
-                          <button className="border-0 bg-transparent ">
-                            <img src={cart} alt="Adicionar em Carrinho" />
-                          </button>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                );
-              } return true
-            })}
-        </div>
-      </Container>
+          );
+        }
+        return true;
+      })}
+  </div>
+</Container>
 
       <Container class1="famous-wrapper py-5 home-wrapper-2">
         <div className="row">
@@ -415,12 +300,6 @@ const Home = () => {
                           alt="Produtos"
                           width={160}
                         />
-                        <img
-                          src={watch2}
-                          className="img-fluid mx-auto "
-                          alt="Produtos"
-                          width={160}
-                        />
                       </div>
                       <div className="product-details">
                         <h6 className="brand">{item?.brand}</h6>
@@ -454,7 +333,8 @@ const Home = () => {
                     </div>
                   </div>
                 );
-              } return true
+              }
+              return true;
             })}
         </div>
       </Container>
@@ -525,7 +405,7 @@ const Home = () => {
                   </div>
                 );
               }
-              return true
+              return true;
             })}
         </div>
       </Container>
