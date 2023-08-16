@@ -75,7 +75,7 @@ const Home = () => {
                         <h2 className="text-2xl font-semibold text-gray-900">
                           {item.title}
                         </h2>
-                        <p className="mt-2 text-lg text-gray-600">
+                        <p className="text-xl font-semibold text-green-500">
                           {formattedPrice}
                         </p>
                         <Link className="mt-4 inline-block bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
@@ -111,78 +111,66 @@ const Home = () => {
         </div>
       </Container>
 
-      <Container class1="featured-wrapper py-5 home-wrapper-2">
-  <div className="row">
-    <div className="col-12">
-      <h3 className="section-heading">Coleção em Destaque</h3>
-    </div>
-    {productState &&
-      productState?.map((item, index) => {
-        if (item.tags === "featured") {
-          return (
-            <div key={index} className="col-3">
-              <div className="product-card relative">
-                <div className="wishlist-icon absolute">
-                  <button
-                    className="border-0 bg-transparent"
-                    onClick={() => {
-                      addToWishList(item?._id);
-                    }}
-                  >
-                    <img src={wish} alt="Produtos" />
-                  </button>
-                </div>
-                <div className="product-image">
-                  <img
-                    src={item?.images[0].url ? item?.images[0].url : watch2}
-                    className="img-fluid mx-auto"
-                    alt="Produtos"
-                    width={160}
-                  />
-                  <img
-                    src={watch2}
-                    className="img-fluid mx-auto"
-                    alt="Produtos"
-                    width={160}
-                  />
-                </div>
-                <div className="product-details">
-                  <h6 className="brand">{item?.brand}</h6>
-                  <h5 className="product-card">{item?.title}</h5>
-                  <ReactStars
-                    count={5}
-                    value={item?.totalrating}
-                    size={24}
-                    edit={false}
-                    activeColor="#ffd700"
-                  />
-                  <p className="price">R${item?.price}</p>
-                </div>
-                <div className="action-bar absolute">
-                  <div className="flex flex-col gap-15">
-                    <button className="border-0 bg-transparent">
-                      <img src={compare} alt="Adicionar em Carrinho" />
-                    </button>
-                    <button className="border-0 bg-transparent">
-                      <img
-                        onClick={() => navigate("/product/" + item?._id)}
-                        src={view}
-                        alt="Visualizar"
-                      />
-                    </button>
-                    <button className="border-0 bg-transparent">
-                      <img src={cart} alt="Adicionar em Carrinho" />
-                    </button>
-                  </div>
-                </div>
-              </div>
-            </div>
-          );
-        }
-        return true;
-      })}
-  </div>
-</Container>
+      <Container class1="py-5 bg-gray-100 w-[100%] h-full">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-[100%] h-full">
+          <h3 className="text-2xl sm:text-3xl font-semibold mb-8">
+            Coleção em Destaque
+          </h3>
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            {productState &&
+              productState.map((item, index) => {
+                if (item.tags === "featured") {
+                  return (
+                    <div key={index} className="bg-white rounded-lg shadow-md">
+                      <div className="relative">
+                        <img
+                          src={item.images[0].url ? item.images[0].url : watch2}
+                          alt="Produtos"
+                          className="w-100 h-auto object-cover hover:scale-110 transition duration-300"
+                        />{" "}
+                        <button
+                          className="absolute top-2 right-2 bg-transparent border-0"
+                          onClick={() => {
+                            addToWishList(item._id);
+                          }}
+                        >
+                          <img src={wish} alt="Produtos" />
+                        </button>
+                      </div>
+                      <div className="p-4">
+                        <h6 className="text-gray-600 text-sm mb-2">
+                          {item.brand}
+                        </h6>
+                        <h5 className="text-lg font-semibold mb-2">
+                          {item.title}
+                        </h5>
+                        <p className="text-xl font-semibold text-green-500">
+                          R${item.price}
+                        </p>
+                      </div>
+                      <div className="flex justify-between p-4 border-t border-gray-200">
+                        <button className="border-0 bg-transparent">
+                          <img src={compare} alt="Adicionar em Carrinho" />
+                        </button>
+                        <button className="border-0 bg-transparent">
+                          <img
+                            onClick={() => navigate(`/product/${item._id}`)}
+                            src={view}
+                            alt="Visualizar"
+                          />
+                        </button>
+                        <button className="border-0 bg-transparent">
+                          <img src={cart} alt="Adicionar em Carrinho" />
+                        </button>
+                      </div>
+                    </div>
+                  );
+                }
+                return true;
+              })}
+          </div>
+        </div>
+      </Container>
 
       <Container class1="famous-wrapper py-5 home-wrapper-2">
         <div className="row">
