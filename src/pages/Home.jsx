@@ -1,5 +1,5 @@
 import { Link, useNavigate } from "react-router-dom";
-import React, { useCallback, useEffect } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import Marquee from "react-fast-marquee";
 import BlogCard from "../components/BlogCard";
 import SpecialProduct from "../components/SpecialProduct";
@@ -34,6 +34,7 @@ const Home = () => {
   const navigate = useNavigate();
   const blogState = useSelector((state) => state?.blog?.blog);
   const productState = useSelector((state) => state.product.product);
+  const [displayCount, setDisplayCount] = useState(5);
 
   const addToWishList = (id) => {
     dispatch(addWishList(id));
@@ -64,13 +65,18 @@ const Home = () => {
                   currency: "BRL",
                 }).format(item.price);
                 return (
-                  <div className="lg:w-1/2 p-4" key={ind}>
+                  <div className="lg:w-[25%] p-4" key={ind}>
                     <div className="h-full bg-white p-8 rounded shadow-lg flex flex-col justify-between">
-                      <img
-                        src={item.images[0].url}
-                        className="w-[100%]  h-[100%] rounded-t hover:scale-125 transition duration-300"
-                        alt="Produtos Eletrônicos"
-                      />
+                      <Link
+                        to={`/product/${item?._id}`}
+                        className="border-0 bg-transparent"
+                      >
+                        <img
+                          src={item.images[0].url}
+                          className="w-[100%]  h-auto rounded-t hover:scale-125 transition duration-300"
+                          alt="Produtos Eletrônicos"
+                        />
+                      </Link>
                       <div className="mt-6">
                         <h2 className="text-2xl font-semibold text-gray-900">
                           {item.title}
@@ -120,6 +126,10 @@ const Home = () => {
             {productState &&
               productState.map((item, index) => {
                 if (item.tags === "featured") {
+                  const formattedPrice = new Intl.NumberFormat("pt-BR", {
+                    style: "currency",
+                    currency: "BRL",
+                  }).format(item.price);
                   return (
                     <div key={index} className="bg-white rounded-lg shadow-md">
                       <div className="relative">
@@ -134,7 +144,9 @@ const Home = () => {
                             addToWishList(item._id);
                           }}
                         >
-                          <img src={wish} alt="Produtos" />
+                          <span className="hover:text-red-500 hover:scale-110 transition duration-300 ">
+                            ❤️
+                          </span>
                         </button>
                       </div>
                       <div className="p-4">
@@ -145,7 +157,7 @@ const Home = () => {
                           {item.title}
                         </h5>
                         <p className="text-xl font-semibold text-green-500">
-                          R${item.price}
+                          {formattedPrice}
                         </p>
                       </div>
                       <div className="flex justify-between p-4 border-t border-gray-200">
@@ -173,59 +185,51 @@ const Home = () => {
       </Container>
 
       <Container class1="famous-wrapper py-5 home-wrapper-2">
-        <div className="row">
-          <div className="col-3">
-            <div className="famous-card position-relative">
-              <img src={famous} className="img-fluid" alt="Produtos Famosos" />
-              <div className="famous-content position-absolute">
-                <h5>Telas Grandes.</h5>
-                <h6>Série de Relógios Inteligentes.</h6>
-                <p>De R$9.999,00 ou R$883,25/mês durante 1 Ano. </p>
+        {productState &&
+          productState.slice(0, displayCount).map((product, index) => (
+            <div
+              key={index}
+              className="flex flex-col overflow-hidden rounded shadow-lg m-6 cursor-pointer transform hover:scale-105 transition-transform duration-200"
+            >
+              {" "}
+              <Link
+                to={`/product/${product?._id}`}
+                className="border-0 bg-transparent"
+              >
+                <div className="flex-shrink-0">
+                  <img
+                    className="h-48 w-full object-cover"
+                    src={
+                      product.images[0]?.url ? product.images[0]?.url : watch2
+                    }
+                    alt={product.title}
+                  />
+                </div>
+              </Link>
+              <div className="flex-1 bg-white p-6 flex flex-col justify-between">
+                <div className="flex-1">
+                  <p className="text-sm font-medium text-indigo-600">
+                    {product.category}
+                  </p>
+                  <h5 className="mt-2 text-xl font-semibold text-gray-900">
+                    {product.title}
+                  </h5>
+                  <p
+                    className="mt-3 text-base text-gray-500"
+                    dangerouslySetInnerHTML={{
+                      __html: product.description,
+                    }}
+                  ></p>
+                </div>
               </div>
             </div>
-          </div>
-
-          <div className="col-3">
-            <div className="famous-card position-relative">
-              <img src={famous2} className="img-fluid" alt="Produtos Famosos" />
-              <div className="famous-content position-absolute">
-                <h5 className="text-dark">Laptop.</h5>
-                <h6 className="text-dark">De Última Geração.</h6>
-                <p className="text-dark">
-                  De R$2.999,00 ou R$250,50/mês durante 1 Ano.{" "}
-                </p>
-              </div>
-            </div>
-          </div>
-
-          <div className="col-3">
-            <div className="famous-card position-relative">
-              <img src={famous3} className="img-fluid" alt="Produtos Famosos" />
-              <div className="famous-content position-absolute">
-                <h5 className="text-dark">Iphone.</h5>
-                <h6 className="text-dark">Iphones 13 Pro.</h6>
-                <p className="text-dark">
-                  Agora em tonalidade Verde. De R$4.450,00 ou R$370,00/mês por 1
-                  ano.{" "}
-                </p>
-              </div>
-            </div>
-          </div>
-
-          <div className="col-3">
-            <div className="famous-card position-relative">
-              <img src={famous4} className="img-fluid" alt="Produtos Famosos" />
-              <div className="famous-content position-absolute">
-                <h5 className="text-dark">Som</h5>
-                <h6 className="text-dark">Caixa de Som</h6>
-                <p className="text-dark">
-                  {" "}
-                  De R$1.450,00 ou R$120,00/mês durante 1 ano.{" "}
-                </p>
-              </div>
-            </div>
-          </div>
-        </div>
+          ))}
+        <button
+          onClick={() => setDisplayCount(displayCount + 5)}
+          className="text-center w-full py-2 bg-indigo-600 hover:bg-indigo-800 text-white"
+        >
+          Mais Produtos
+        </button>
       </Container>
 
       <Container class1="special-wrapper py-5 home-wrapper-2">
