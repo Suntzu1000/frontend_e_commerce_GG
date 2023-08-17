@@ -27,6 +27,8 @@ import ReactStars from "react-rating-stars-component";
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
+import { FaAngleLeft, FaAngleRight } from "react-icons/fa"; 
+
 
 
 const Home = () => {
@@ -59,11 +61,12 @@ const Home = () => {
 
   return (
     <>
-      <Container class1="mx-auto px-4 sm:px-6 lg:px-8 py-5">
+      <Container class1="mx-auto px-4 sm:px-6 lg:px-8 py-5 bg-gray-300" >
+        <h1 className="py-3 text-5xl font-bold" >Produtos</h1>
         <Slider
         className="flex flex-wrap -m-4"
-        slidesToShow={4}
-        slidesToScroll={1}
+        slidesToShow={4.1}
+        slidesToScroll={4.1}
         autoplay={false}
         dots={false}
         responsive={[
@@ -76,7 +79,7 @@ const Home = () => {
           {
             breakpoint: 768,
             settings: {
-              slidesToShow: 2,
+              slidesToShow: 1,
             },
           },
           {
@@ -94,7 +97,7 @@ const Home = () => {
                 currency: "BRL",
               }).format(item.price);
               return (
-                <div className="lg:w-100 p-4 h-auto bg-white" key={ind}>
+                <div className="lg:w-100 p-4 h-[500px] bg-white" key={ind}>
                   <div className="w-100  h-full bg-white p-8 rounded shadow-lg flex flex-col justify-between">
                     <Link
                       to={`/product/${item?._id}`}
