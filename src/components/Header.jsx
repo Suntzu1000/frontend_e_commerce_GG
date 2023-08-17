@@ -65,7 +65,7 @@ const Header = () => {
 
   useEffect(() => {
     dispatch(getUserCart(config2));
-  }, [dispatch]);
+  }, []);
 
   return (
     <>
