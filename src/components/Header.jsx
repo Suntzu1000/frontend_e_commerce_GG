@@ -12,6 +12,7 @@ import { Typeahead } from "react-bootstrap-typeahead";
 import "react-bootstrap-typeahead/css/Typeahead.css";
 import { getProduct } from "../features/products/productsSlice";
 import { getUserCart } from "../features/user/userSlice";
+import ResponsiveMenu from "./ResponsiveMenu";
 
 const Header = () => {
   const dispatch = useDispatch();
@@ -153,53 +154,26 @@ const Header = () => {
       <header className="header-bottom py-3 bg-gray-900">
         <div className="container-xxl">
           <div className="flex items-center justify-center">
-            <div className="relative">
-              <button
-                className="btn bg-transparent border-0 text-white flex items-center gap-2"
-                type="button"
-                id="dropdownMenuButton1"
-                data-bs-toggle="dropdown"
-                aria-expanded="false"
-              >
-                <img src={menu} alt="menu" className="h-5" />
-                <span className="me-5">Categorias</span>
-              </button>
-              <ul
-                className="dropdown-menu"
-                aria-labelledby="dropdownMenuButton1"
-              >
-                <li>
-                  <Link className="dropdown-item text-white" to="#">
-                    Action
-                  </Link>
-                </li>
-                <li>
-                  <Link className="dropdown-item text-white" to="#">
-                    Another action
-                  </Link>
-                </li>
-                <li>
-                  <Link className="dropdown-item text-white" to="#">
-                    Something else here
-                  </Link>
-                </li>
-              </ul>
-            </div>
-            <div className="flex items-center gap-5 text-white">
-              <NavLink to="/">Página Inicial</NavLink>
-              <NavLink to="/product">Produtos</NavLink>
-              <NavLink to="/my-orders">Pedidos</NavLink>
-              <NavLink to="/blogs">Blogs</NavLink>
-              <NavLink to="/contact">Contato</NavLink>
-              <button
-                className="border-0 bg-transparent text-white uppercase"
-                type="button"
-                onClick={(e) => {
-                  handleLogout(e);
-                }}
-              >
-                Sair
-              </button>
+            <div className="flex items-center justify-center lg:flex">
+              <ResponsiveMenu />
+              <div className="hidden lg:block">
+                <div className="flex items-center gap-5 text-white">
+                  <NavLink to="/">Página Inicial</NavLink>
+                  <NavLink to="/product">Produtos</NavLink>
+                  <NavLink to="/my-orders">Pedidos</NavLink>
+                  <NavLink to="/blogs">Blogs</NavLink>
+                  <NavLink to="/contact">Contato</NavLink>
+                  <button
+                    className="border-0 bg-transparent text-white uppercase"
+                    type="button"
+                    onClick={(e) => {
+                      handleLogout(e);
+                    }}
+                  >
+                    Sair
+                  </button>
+                </div>
+              </div>
             </div>
           </div>
         </div>
