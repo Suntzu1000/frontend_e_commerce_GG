@@ -13,6 +13,7 @@ import "react-bootstrap-typeahead/css/Typeahead.css";
 import { getProduct } from "../features/products/productsSlice";
 import { getUserCart } from "../features/user/userSlice";
 import ResponsiveMenu from "./ResponsiveMenu";
+import ResponsiveMenuNavLinks from "./ResponsiveMenuNavLinks";
 
 const Header = () => {
   const dispatch = useDispatch();
@@ -85,31 +86,35 @@ const Header = () => {
       </header>
       <header className="header-upper py-3 bg-gray-900">
         <div className="container-xxl">
-          <div className="flex items-center justify-between">
-            <Link to="/" className="text-white">
-              <img src={logo} alt="Logo" className="h-10" />
-            </Link>
-            <div className="flex-1 mx-5">
-              <div className="relative">
-                <Typeahead
-                  id="pagination-example"
-                  onPaginate={() => console.log("Results paginated")}
-                  onChange={(selected) => {
-                    navigate(`/product/${selected[0]?.prod}`);
-                    dispatch(getProduct(selected[0]?.prod));
-                  }}
-                  minLength={2}
-                  options={productOpt}
-                  paginate={paginate}
-                  labelKey={"name"}
-                  placeholder="Procurar Produtos..."
-                  className="pl-10 pr-4 py-2 rounded-lg bg-white text-gray-800 focus:outline-none focus:shadow-outline"
-                />
-                <div className="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
-                  <BsSearch className="text-gray-400" />
+          <div className="flex items-center justify-center lg:flex">
+            <ResponsiveMenu />
+            <div className="hidden lg:block">
+              <div className="flex items-center gap-5 text-white">
+                <Link to="/" className="text-white">
+                  <img src={logo} alt="Logo" className="h-10" />
+                </Link>
+                <div className="flex-1 mx-5">
+                  <div className="relative">
+                    <Typeahead
+                      id="pagination-example"
+                      onPaginate={() => console.log("Results paginated")}
+                      onChange={(selected) => {
+                        navigate(`/product/${selected[0]?.prod}`);
+                        dispatch(getProduct(selected[0]?.prod));
+                      }}
+                      minLength={2}
+                      options={productOpt}
+                      paginate={paginate}
+                      labelKey={"name"}
+                      placeholder="Procurar Produtos..."
+                      className="pl-10 pr-4 py-2 rounded-lg bg-white text-gray-800 focus:outline-none focus:shadow-outline"
+                    />
+                    <div className="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
+                      <BsSearch className="text-gray-400" />
+                    </div>
+                  </div>
                 </div>
-              </div>
-            </div>
+             
             <div className="flex items-center gap-5">
               <Link
                 to="/compare-products"
@@ -149,13 +154,15 @@ const Header = () => {
               </Link>
             </div>
           </div>
+        </div> 
         </div>
+          </div>
       </header>
       <header className="header-bottom py-3 bg-gray-900">
         <div className="container-xxl">
           <div className="flex items-center justify-center">
             <div className="flex items-center justify-center lg:flex">
-              <ResponsiveMenu />
+              <ResponsiveMenuNavLinks />
               <div className="hidden lg:block">
                 <div className="flex items-center gap-5 text-white">
                   <NavLink to="/">Página Inicial</NavLink>
